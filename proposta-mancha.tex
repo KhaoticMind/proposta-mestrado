@@ -102,7 +102,7 @@
 \titulo{Utilização de processamento natural de linguagem para abstração de logs}
 \autor{Antonio Augusto Oliveira Viana Santos}
 \local{Brasil}
-\data{01-2016}
+\data{02-2016}
 \instituicao{%
   Universidade Federal de Sergipe -- UFS
   \par
@@ -279,37 +279,44 @@ Com esse objetivo, buscou-se analisar diversos componentes que pudessem integrar
 
 Com base na arquitetura apresentada acima, em uma recente revisão da literatura conduzida durante o primeiro ano de mestrado (ainda a ser publicada), revisamos vários trabalhos que vem sendo desenvolvidos na área de detecção de intrusão usando os componentes elencados acima e identificamos que ainda existem diversos pontos de melhoria (nas soluções individuais e nas suas combinações).
 
-Um dos pontos que nos chamou atenção durante essa revisão foi o uso de técnicas de aprendizado de máquina, e da variedade de aplicações que os pesquisadores têm encontrado dentro da área de detecção de intrusão. Um interesse especial é sobre a detecção de invasão através da análise de logs de sistema (importante para \emph{complaince} de empresas, sendo requisito de padrões de segurança como o PCI DSS e a lei Sarbanes-Oxley \cite{prakhar2012log}).
+Um dos pontos que nos chamou atenção durante essa revisão foi o uso de técnicas de aprendizado de máquina, e da variedade de possíveis aplicações que os pesquisadores têm encontrado dentro da área de detecção de intrusão. De interesse especial é a detecção de invasão através da análise de \emph{logs} de sistema (importante para \emph{compliance} de empresas, sendo requisito de padrões de segurança como o PCI DSS e a lei Sarbanes-Oxley \cite{prakhar2012log}).
 
-No XXXX da arquitetura apresentada anteriormente, e visando a combinação de técnicas, acreditamos que o uso de técnicas de processamento natural de linguagem pode gerar um impacto positivo na área de armazenamento de dados. Principalmente quando consideramos o cenário de aquisição de dados heterogêneos, necessário para um melhor desempenho dos IDSs \cite{zuech2015intrusion}.
+O padrão para a geração de \emph{logs} em ambientes UNIX\texttrademark é o \emph{syslog}. As mensagens de \emph{log} do formato syslog são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} fáceis para interpretar por humanos, mas difíceis de serem analisados por máquinas. O uso de técnicas de processamento natural de linguagem (uma sub-área do aprendizado de máquina) pode ser usada para extrair informações das entradas de logs. Para isso focaremos em técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
 
-EXPANDIR MAIS QUE FOCAREMOS NO APRENDIZADO DE MAQUINA/PROCESSAMENTO NATURAL DE LINGUAGEM
-- Citar técnicas de NLP que vou usar (uma ou duas linhas)
+A análise de \emph{logs} é feita hoje em dia é feita ou manualmente (gerando padrões de texto de forma manual através do uso de expressões regulares - \emph{regex}) onde é possível a extração das ``entidades''\footnote{Por entidades nos referimos aos hosts, ips, usuários, etc, que são referidos em uma linha de log} que compõe uma linha de \emph{log}, ou de forma automática, onde são agrupadas linhas similares (com variados graus de sucesso), mas sem conseguir discernir os componentes de cada linha.
+
+A ideia do uso da linguagem natural é permitir a geração automática de expressões regulares que consigam, não só agrupar linhas de \emph{logs} similares, mas que também possam detectar as entidades presentes nessas linhas, e correlacioná-las entre linhas de origens diferentes (isto é, saber que dois campos em entradas de \emph{logs} diferentes se referem à entidade usuário).
+
+Além da aplicabilidade para a análise de \emph{logs}, acreditamos que o uso do processamento natural de linguagem em registros gerados por computadores pode gerar um impacto positivo na área de armazenamento de dados. Esse ganho é alcançado principalmente quando consideramos o cenário de aquisição de dados heterogêneos, necessário para um melhor desempenho dos IDSs \cite{zuech2015intrusion}.
 
 Essa proposta é dividida da seguinte forma: no Capítulo \ref{chap:referencial} apresentaremos o referencial teórico de suporte ao nosso trabalho; no Capítulo \ref{chap:proposta} apresentaremos nossa proposta e seus impactos, inicialmente, em alto nível, e a seguir serão mostrados alguns dos detalhes técnicos do que esperamos alcançar com nosso trabalho; por último, no Capítulo \ref{chap:cronograma} mostraremos um cronograma das nossas atividades para o próximo ano.
 
 \subsection{Objetivos}
 
-O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) que possam ser amplicadas as técnicas de abstração de logs, permitindo a identificação de entidades dentro dos \emph{logs}, e gerando melhores abstrações.
+O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) que possam ser aplicadas as técnicas de abstração de logs, permitindo a identificação de entidades dentro dos \emph{logs}, e gerando melhores abstrações.
 
 Como objetivos específicos podemos citar:
 \begin{itemize}
-	\item{\textbf{Revisar o estado da arte}} avaliar o estado da arte das soluções de abstração de \emph{logs} e de processamento natural de linguagem, dentro da comunidade acadêmica;
+	\item{\textbf{Revisar o estado da arte}} Avaliar o estado da arte das soluções de abstração de \emph{logs} e de processamento natural de linguagem, dentro da comunidade acadêmica;
 
 	\item{\textbf{Pesquisar ferramentas}} Estudar as ferramentas que pretendemos utilizar dentro de nosso trabalho (especificamente a biblioteca NLTK \cite{bird2009natural}.)
 	
-	\item{\textbf{Definir política de avaliação}} definir uma política de avaliação de nossa solução, para podermos identificar melhoras no nosso trabalho, e poder gerarmos comparações com outros trabalhos publicados;
+	\item{\textbf{Definir política de avaliação}} Definir uma política de avaliação de nossa solução, para podermos identificar melhoras no nosso trabalho, e poder gerarmos comparações com outros trabalhos publicados;
 	
-	\item{\textbf{Implementar um produto de software}} implementar um produto de software usando as técnicas estudadas acima;
+	\item{\textbf{Implementar um produto de software}} Implementar um produto de software usando as técnicas estudadas acima;
 	
 	\item{\textbf{Analisar desempenho da solução implementada}} Usar a política de avaliação definida para verificar ganhos da nossa solução;
 	
-	\item{\textbf{Publicação dos resultados encontrados}} compartilhar os resultados encontrados com a comunidade acadêmica, através da publicação de artigos em congressos com Qualis, e  da elaboração de uma dissertação de mestrado, ou da compilação de artigos publicados;
+	\item{\textbf{Publicação dos resultados encontrados}} Compartilhar os resultados encontrados com a comunidade acadêmica, através da publicação de artigos em congressos com Qualis, e  da elaboração de uma dissertação de mestrado, ou da compilação de artigos publicados;
 	
 \end{itemize}
 
+Com essa abordagem nos esperamos alcançar alguns objetivos que não encontramos em nenhum outro ponto da literatura:
 
-Falar do que os caras fizeram e o que vamos fazer diferente
+\begin{itemize}
+	\item Definir uma política de avaliação da capacidade de abstração de \emph{logs}, que pode ser usado para avaliar novas ferramentas;
+	\item Definir uma nova forma de abstração de \emph{logs}, que consegue detectar o tipo de entidade presente nos \emph{logs};
+\end{itemize}
 
 \subsection{Trabalhos relacionados}
 - O que os outros fizeram
