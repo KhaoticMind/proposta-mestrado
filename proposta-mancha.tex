@@ -293,7 +293,7 @@ Essa proposta é dividida da seguinte forma: no Capítulo \ref{chap:referencial}
 
 \subsection{Objetivos}
 
-O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) que possam ser aplicadas as técnicas de abstração de logs, permitindo a identificação de entidades dentro dos \emph{logs}, e gerando melhores abstrações.
+O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) que possam ser aplicadas as técnicas de abstração de logs, permitindo a identificação de entidades dentro dos \emph{logs}, gerando melhores abstrações.
 
 Como objetivos específicos podemos citar:
 \begin{itemize}
@@ -336,7 +336,7 @@ Como última etapa queremos correlacionar as entidades através de diferentes ti
 % ----------------------------------------------------------
 \chapter{Referencial Teórico}\label{chap:referencial}
 
-Nesta seção apresentaremos alguns trabalhos que vem sendo executados na área de detecção de intrusões com uso de técnicas de aprendizado de máquina e de abstração de \emph{logs}. No tocante ao uso de aprendizado de máquina, vê-se que os trabalhos não se restringem somente à detecção de anomalias, e quanto à abstração de \emph{logs}, vemos que os trabalhos se concentram somente em encontrar padrões de texto, e não na recuperação de entidades, como propomos.
+Nesta seção apresentaremos alguns trabalhos que vem sendo executados na área de detecção de intrusões com uso de técnicas de aprendizado de máquina, trabalhos relacionados a abstração de \emph{logs}, e as realizações atuais sobre o processamento natural de linguagem. No tocante ao uso de aprendizado de máquina, vê-se que os trabalhos não se restringem somente à detecção de anomalias, com várias outras aplicações sendo realizadas. Quanto à abstração de \emph{logs}, vemos que os trabalhos se concentram somente em encontrar padrões de texto, e não na recuperação de entidades, como propomos. Por último, as técnicas de processamento natural de linguagem vem mostrando um rápido crescimento e expandindo sua aplicabilidade.
 
 \section{Aprendizado de máquina}\title{sec:aprendizado_de_maquina}
 O uso de técnicas de aprendizado de máquina começou a ser explorada na área de detecção de intrusões focando em melhorias na detecção de anomalias em IDSs, visto que a maioria dos sistemas hoje usam técnicas de detecção por assinatura, o que restringe sua ação para detecção de variações de ataques existentes, ou mesmo de novos ataques. Essas técnicas, e a mineração de dados, de forma geral, tem apresentado bons resultados nesse sentido \cite{dua2011data, yen2013beehive, zomlot2013aiding, ganapathy2012intelligent, li2013automatic, joseph2012machine}.
@@ -360,8 +360,22 @@ A área de mineração de textos, em especial a área de extração de informaç
 
 \subsection{Bibliotecas de processamento natural de linguagem}
 
-Durante o desenvolvimento do nosso trabalho usaremos a biblioteca NLTK (Ferramentas de Linguagem Natural, na sigla em inglês) \cite{bird2009natural}. Essa biblioteca funciona em conjunto com a linguagem de programação Python
+Nosso objetivo não é desenvolver um novo paradigma para o processamento natural de linguagem. Por isso iremos fazer uso de bibliotecas de programação já existentes, que forneçam suporte as técnicas que pretendemos utilizar. Para isso planejamos usar a biblioteca NLTK (Ferramentas de Linguagem Natural, na sigla em inglês) \cite{bird2009natural}. Essa biblioteca funciona em conjunto com a linguagem de programação Python.
 
+A escolha dessa biblioteca foi feita levando em consideração os seguintes pontos:
+
+\begin{itemize}
+	\item Biblioteca distribuída livremente (sob licença Open-Source), o que facilita a reprodutibilidade do trabalho;
+	\item Documentação ampla, facilitando seu uso;
+	\item Utilização da linguagem Python (de domínio do mestrando);
+\end{itemize}
+
+Além disso, a linguagem Python, por si só, possui mais algumas vantagens, que a tornam interessante para o desenvolvimento de uma solução de software completa:
+\begin{itemize}
+	\item Outras bibliotecas que dão suporte a diversas técnicas de aprendizado de máquina (que podem ser necessárias durante o desenvolvimento do trabalho);
+	\item Suporte para a criação de uma solução de software completa (suporte à conectividade à banco de dados, e ao desenvolvimento de aplicações Web, por exemplo);
+	\item Facilidade de conectividade com outras linguagens de programação (\emph{bindings});
+\end{itemize}
 
 \chapter{Utilização de processamento natural de linguagem para abstração de logs}\label{chap:proposta}
 
