@@ -252,36 +252,11 @@ Além disso, estas tentativas de invasão através da Internet ou de outra rede 
 
 Para superar esse desafio, a comunidade acadêmica tem empreendido muitos esforços na busca de melhores arquiteturas para solução de detecção de intrusão, buscando, inclusive, inspiração (e técnicas) que obtiveram sucesso em outras áreas da computação. No entanto, para criar uma solução de IDS realmente inteligente, isto é, que possa detectar, de forma autônoma, vários ataques e que ofereça \emph{feedback} relevante para os seus usuários, devemos combinar várias tecnologias atualmente disponíveis (traçando um paralelo com \cite{schales2011stream}).
 
-Com esse objetivo, buscou-se analisar diversos componentes que pudessem integrar uma arquitetura de IDS que atenda as necessidades mostradas, e julgados relevantes pela literatura recente. Esse estudo culminou na proposta apresentada na Figura \ref{fig:arquitetura-iids}. Essa figura mostra os componentes mais significativos para um sistema de IDS Inteligente (\emph{Inteligent IDS}, IIDS), os quais são:
+Com base nessas informações, durante uma disciplina do primeiro ano do mestrado, foi feita uma revisão da literatura conduzida (ainda a ser publicada), onde revisamos vários trabalhos que vem sendo desenvolvidos na área de detecção de intrusão usando diversas técnicas que julgamos promissoras (quais sejam: aprendizado de máquina, sistemas multiagentes, sistemas de data \emph{warehouse}, visualização de dados, detecção de intrusão baseada em regras e ontologias), e identificamos que ainda existem diversos pontos de melhoria (nas soluções individuais e nas suas combinações) a serem perseguidos pela comunidade.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=.8\textwidth]{arquitetura-iids.jpg}
-	\caption{Arquitetura idealizada para um IIDS}
-	\label{fig:arquitetura-iids}
-\end{figure}
+Um ponto que nos chamou atenção durante essa revisão foi o uso de técnicas de aprendizado de máquina, e a variedade de possíveis aplicações que os pesquisadores têm encontrado dentro da área de detecção de intrusão. A detecção de invasão através da análise de \emph{logs} de sistema é importante, pois é usada para \emph{compliance} de empresas, sendo requisito de padrões de segurança como o PCI DSS e a lei Sarbanes-Oxley \cite{prakhar2012log}).
 
-\begin{itemize}
-	
-	\item \textbf{Aprendizado de máquina}: Técnicas de aprendizado de máquina (e de mineração de dados, de forma mais abrangente), são a base para um sistema de detecção de intrusão realmente inteligente, que ofereça suporta à detecção de anomalias com uma baixa taxa de falsos positivos;
-	
-	\item \textbf{Sistemas multiagentes}: O uso de sistemas multiagentes na modelagem do IDS oferece ganhos no processamento, e na inteligência do sistema. Além disso, a utilização de agentes móveis pode se mostrar de grande valia no cruzamento de informações de diferentes fontes;
-	
-	\item \textbf{Sistemas de \emph{data warehouse}}: O grande volume de informação gerado precisa ser analisado e armazenado da melhor maneira possível, levando em consideração: diversidade de dados, velocidade de aquisição de informações, volume de dados, facilidade para análise e visualização dos dados; acredita-se que o conjunto dessas características só pode ser alcançado através de um sistema distribuído; 
-	
-	\item \textbf{Visualização de dados}: Muito do \emph{feedback} oferecido pelo IDS deve ser visual, e com o grande volume de dados que é analisado, a maneira como esses dados são visualizados deve ser revista. Idealmente as informações devem ser exibidas de forma a agregar o máximo de informação possível, mas sem sobrecarregar o sistema visual do usuário;
-	
-	\item \textbf{Regras}: A base dos IDSs atuais não deve ser descartada. Detecção baseada em assinatura oferecem uma excelente taxa de verdadeiros positivos, e sua ampla utilização é prova inequívoca de sua capacidade de lidar (em parte) com o problema de detecção de intrusão. Acreditamos que, como em sistemas de detecção de \emph{SPAM}, o uso de técnicas baseadas em assinatura, usado em conjunto com outras técnicas, pode adicionar valor ao sistema;
-	
-	\item \textbf{Ontologias}: O uso de ontologias em sistemas de IDS pode trazer grandes avanços na questão semântica, permitindo um melhor entendimento dos impactos que podem ser causados pelos ataques. Enquanto alguns trabalhos já foram feitos focando no levantamento de requisitos para sistemas \cite{souag2012ontologies}, poucos ainda são focados no uso dessa técnica para os IDSs \cite{patel2013intrusion, sadighian2014ontids}.
-	
-\end{itemize}
-
-Com base na arquitetura apresentada acima, em uma recente revisão da literatura conduzida durante o primeiro ano de mestrado (ainda a ser publicada), revisamos vários trabalhos que vem sendo desenvolvidos na área de detecção de intrusão usando os componentes elencados acima e identificamos que ainda existem diversos pontos de melhoria (nas soluções individuais e nas suas combinações).
-
-Um dos pontos que nos chamou atenção durante essa revisão foi o uso de técnicas de aprendizado de máquina, e da variedade de possíveis aplicações que os pesquisadores têm encontrado dentro da área de detecção de intrusão. De interesse especial é a detecção de invasão através da análise de \emph{logs} de sistema (importante para \emph{compliance} de empresas, sendo requisito de padrões de segurança como o PCI DSS e a lei Sarbanes-Oxley \cite{prakhar2012log}).
-
-O padrão para a geração de \emph{logs} em ambientes UNIX\texttrademark é o \emph{syslog}. As mensagens de \emph{log} do formato syslog são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} fáceis para interpretar por humanos, mas difíceis de serem analisados por máquinas. O uso de técnicas de processamento natural de linguagem (uma sub-área do aprendizado de máquina) pode ser usada para extrair informações das entradas de logs. Para isso focaremos em técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
+O padrão para a geração de \emph{logs} em ambientes UNIX\texttrademark (amplamente usado em ambientes de servidores \cite{w3techs-osusage}) é o \emph{syslog}. As mensagens de \emph{log} do formato syslog são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} fáceis para interpretar por humanos, mas difíceis de serem analisados por máquinas. O uso de técnicas de processamento natural de linguagem - uma sub-área do aprendizado de máquina - pode ser usada para extrair informações das entradas de logs. Para isso focaremos em técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
 
 A análise de \emph{logs} é feita hoje em dia é feita ou manualmente (gerando padrões de texto de forma manual através do uso de expressões regulares - \emph{regex}) onde é possível a extração das ``entidades''\footnote{Por entidades nos referimos aos hosts, ips, usuários, etc, que são referidos em uma linha de log} que compõe uma linha de \emph{log}, ou de forma automática, onde são agrupadas linhas similares (com variados graus de sucesso), mas sem conseguir discernir os componentes de cada linha.
 
@@ -297,18 +272,16 @@ O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natur
 
 Como objetivos específicos podemos citar:
 \begin{itemize}
-	\item{\textbf{Revisar o estado da arte}} Avaliar o estado da arte das soluções de abstração de \emph{logs} e de processamento natural de linguagem, dentro da comunidade acadêmica;
+	\item{} Estudar as várias soluções de abstração de \emph{logs} e de processamento natural de linguagem, dentro da comunidade acadêmica;
 
-	\item{\textbf{Pesquisar ferramentas}} Estudar as ferramentas que pretendemos utilizar dentro de nosso trabalho (especificamente a biblioteca NLTK \cite{bird2009natural}.)
+	\item{} Pesquisar ferramentas que implementem algoritmos de NLP e possivelmente possam ser utilizadas em nosso trabalho (especificamente as bibliotecas NLTK \cite{bird2009natural} e scikit-learn \cite{pedregosa2008scikitlearn}.)
 	
-	\item{\textbf{Definir política de avaliação}} Definir uma política de avaliação de nossa solução, para podermos identificar melhoras no nosso trabalho, e poder gerarmos comparações com outros trabalhos publicados;
+	\item{} Definir uma Política de Avaliação, para podermos identificar melhoras no nosso trabalho, e poder gerarmos comparações com outros trabalhos publicados;
 	
-	\item{\textbf{Implementar um produto de software}} Implementar um produto de software usando as técnicas estudadas acima;
+	\item{} Implementar um produto de software usando as técnicas de NLP estudadas acima, para gerarmos abstrações de \emph{logs} que possam detectar as entidades que fazem parte do mesmo;
 	
-	\item{\textbf{Analisar desempenho da solução implementada}} Usar a política de avaliação definida para verificar ganhos da nossa solução;
-	
-	\item{\textbf{Publicação dos resultados encontrados}} Compartilhar os resultados encontrados com a comunidade acadêmica, através da publicação de artigos em congressos com Qualis, e  da elaboração de uma dissertação de mestrado, ou da compilação de artigos publicados;
-	
+	\item{} Analisar desempenho da solução implementada usando a Política de Avaliação a ser definida para verificar ganhos da nossa solução;
+		
 \end{itemize}
 
 Com essa abordagem nos esperamos alcançar alguns objetivos que não encontramos em nenhum outro ponto da literatura:
@@ -327,7 +300,9 @@ Vamos trabalhar com uma abordagem incremental, resolvendo problemas aos poucos.
 
 Num primeiro momento queremos conseguir extrair os ``templates'' de \emph{logs} de um único programa (já feito por alguns pesquisadores \cite{nagappan2010abstracting}). Em seguida queremos extrair, desse único tipo de \emph{log}, as entidades que o compõe, de forma a já correlaciona-las (isto é, saber que dois nomes, referem-se a usuários, por exemplo). Esse é uma de nossas principais contribuições, por não encontramos nenhum trabalho que faça esse tipo de geração de forma automática.
 
-Como última etapa queremos correlacionar as entidades através de diferentes tipos de \emph{logs}, ou seja, saber quais campos, de diferentes tipos de \emph{logs}, se referem a um usuário ou a um \emph{host}, por exemplo.
+A seguir queremos correlacionar as entidades através de diferentes tipos de \emph{logs}, ou seja, saber quais campos, de diferentes tipos de \emph{logs}, se referem a um usuário ou a um \emph{host}, por exemplo.
+
+A última etapa do nosso trabalho é compartilhar os resultados encontrados com a comunidade acadêmica, através da publicação de artigos em congressos com Qualis, e  da elaboração de uma dissertação de mestrado, ou da compilação de artigos publicados;
 
 \subsection{Analise de desempenho}
 
@@ -345,14 +320,18 @@ Em \cite{yen2013beehive} é apresentado um trabalho com o uso de técnicas de cl
 
 Ainda no campo de detecção de anomalias, em \cite{li2013automatic} bons resultados são alcançados através da combinação de técnicas diferentes de aprendizado de máquina. Nesse trabalho são apresentados dois algoritmos aplicados sequencialmente: o primeiro usado para criar meta-eventos, e o segundo para classificação, usando esses meta-eventos (ao invés dos eventos em si). Nesse trabalho são usados os algoritmos SOM \cite{kohonen1989self}, para gerar os meta-eventos e o DBSCAN \cite{ester1996density}, para a agregação dos meta-eventos.
 
-Mas, além da detecção de anomalias, outro campo que tem recebido muita pesquisa na academia é o uso de mineração de dados para lidar com o grande volume de alertas gerados pelos IDSs baseados em regras usados atualmente. O trabalho apresentado em \cite{zomlot2013aiding}, por exemplo, utiliza a aprendizagem de máquina para tentar priorizar os incidentes: um modelo aprende a opinião de analistas sobre a prioridade dos alertas, e esse conhecimento, posteriormente, é replicado pelo sistema, priorizando automaticamente os alertas .
+Mas, além da detecção de anomalias, outro campo que tem recebido muita pesquisa na academia é o uso de mineração de dados para lidar com o grande volume de alertas gerados pelos IDSs baseados em regras usados atualmente. O trabalho apresentado em \cite{zomlot2013aiding}, por exemplo, utiliza a aprendizagem de máquina para tentar priorizar os incidentes: um modelo aprende a opinião de analistas sobre a prioridade dos alertas, e esse conhecimento, posteriormente, é replicado pelo sistema, priorizando automaticamente os alertas.
 
 Outros trabalhos tentam preencher a lacuna na correlação de eventos de segurança, de forma a identificar a relação entre eventos distintos \cite{smith2008using, stroeh2013approach}.
 
 \section{Abstração de logs}\title{sec:informacao}
-- Mais detalhes
+\cite{nagappan2010abstracting} diz que, dado um conjunto de entradas de logs, ``a separação dos campos estáticos dos campos que mudam dinamicamente é abstração de \emph{logs}'', ou seja, é a técnica de agrupar \emph{logs} do mesmo tipo, de forma que, ao final, tenhamos \emph{templates} desses \emph{logs}, de forma mais genérica possível, e, possivelmente, um quantitativo de quantas vezes cada tipo de \emph{log} ocorreu.
 
-\subsection{Repositório de logs que vão ser analisados}
+Note que incidentalmente a separação dos campos estáticos dos dinâmicos, normalmente, corresponde a um \emph{template} que pode ser encontrado no código fonte do programa. 
+
+Tento isso em vista \cite{xu2009detecting}, usa uma técnica de análise análise de código fonte para extração de \emph{templates} para abstração de logs. Enquanto o resultado obtido por eles é motivador acreditamos que a necessidade de acesos ao código é um fator limitante, pois diversas empresas ainda não estão prontas para adotar software livre ou desenvolver soluções caseiras, para todas as suas necessidades de software.
+
+\subsection{Repositório de \emph{logs} que vão ser analisados}
 
 \section{Processamento natural de linguagem}
 
@@ -448,6 +427,7 @@ Nesse caso, observe que o tipo da entidade, é indicada pelo contexto do \emph{l
 
 \chapter{Cronograma}\label{chap:cronograma}
 
+\chapter{Conclusão}\label{chap:conclusao}
 % ---
 % Finaliza a parte no bookmark do PDF
 % para que se inicie o bookmark na raiz
