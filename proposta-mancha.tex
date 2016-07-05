@@ -258,7 +258,7 @@ Um ponto que nos chamou atenção durante essa revisão foi o uso de técnicas d
 
 O padrão para a geração de \emph{logs} em ambientes UNIX\texttrademark (amplamente usado em ambientes de servidores \cite{w3techs-osusage}) é o \emph{syslog}. As mensagens de \emph{log} do formato syslog são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} fáceis para interpretar por humanos, mas difíceis de serem analisados por máquinas. O uso de técnicas de processamento natural de linguagem - uma sub-área do aprendizado de máquina - pode ser usada para extrair informações das entradas de logs. Para isso focaremos em técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
 
-A análise de \emph{logs} é feita hoje em dia é feita ou manualmente (gerando padrões de texto de forma manual através do uso de expressões regulares - \emph{regex}) onde é possível a extração das ``entidades''\footnote{Por entidades nos referimos aos hosts, ips, usuários, etc, que são referidos em uma linha de log} que compõe uma linha de \emph{log}, ou de forma automática, onde são agrupadas linhas similares (com variados graus de sucesso), mas sem conseguir discernir os componentes de cada linha.
+A análise de \emph{logs} hoje em dia é feita manualmente (gerando padrões de texto de forma manual através do uso de expressões regulares - \emph{regex}) onde é possível a extração das ``entidades''\footnote{Por entidades nos referimos aos hosts, ips, usuários, etc, que são referidos em uma linha de log} que compõe uma linha de \emph{log}, ou de forma automática, onde são agrupadas linhas similares (com variados graus de sucesso), mas sem conseguir discernir os componentes de cada linha.
 
 A ideia do uso da linguagem natural é permitir a geração automática de expressões regulares que consigam, não só agrupar linhas de \emph{logs} similares, mas que também possam detectar as entidades presentes nessas linhas, e correlacioná-las entre linhas de origens diferentes (isto é, saber que dois campos em entradas de \emph{logs} diferentes se referem à entidade usuário).
 
@@ -268,19 +268,19 @@ Essa proposta é dividida da seguinte forma: no Capítulo \ref{chap:referencial}
 
 \subsection{Objetivos}
 
-O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) que possam ser aplicadas as técnicas de abstração de logs, permitindo a identificação de entidades dentro dos \emph{logs}, gerando melhores abstrações.
+O objetivo geral deste trabalho é o de estudar técnicas de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) que possam ser de valia para a abstração de \emph{logs}, permitindo a identificação de entidades dentro dos \emph{logs}, de forma a podermos gerar melhores abstrações dos \emph{logs}.
 
 Como objetivos específicos podemos citar:
 \begin{itemize}
-	\item{} Estudar as várias soluções de abstração de \emph{logs} e de processamento natural de linguagem, dentro da comunidade acadêmica;
+	\item Estudar as várias soluções de abstração de \emph{logs} e de processamento natural de linguagem, dentro da comunidade acadêmica;
 
-	\item{} Pesquisar ferramentas que implementem algoritmos de NLP e possivelmente possam ser utilizadas em nosso trabalho (especificamente as bibliotecas NLTK \cite{bird2009natural} e scikit-learn \cite{pedregosa2008scikitlearn}.)
+	\item Pesquisar ferramentas que implementem algoritmos de NLP e possivelmente possam ser utilizadas em nosso trabalho (especificamente as bibliotecas NLTK \cite{bird2009natural} e scikit-learn \cite{pedregosa2008scikitlearn}.)
 	
-	\item{} Definir uma Política de Avaliação, para podermos identificar melhoras no nosso trabalho, e poder gerarmos comparações com outros trabalhos publicados;
+	\item Definir uma Política de Avaliação, para podermos identificar melhoras no nosso trabalho, e poder gerarmos comparações com outros trabalhos publicados;
 	
-	\item{} Implementar um produto de software usando as técnicas de NLP estudadas acima, para gerarmos abstrações de \emph{logs} que possam detectar as entidades que fazem parte do mesmo;
+	\item Implementar um produto de software usando as técnicas de NLP estudadas acima, para geração de abstrações de \emph{logs} que possam detectar as entidades que fazem parte do mesmo;
 	
-	\item{} Analisar desempenho da solução implementada usando a Política de Avaliação a ser definida para verificar ganhos da nossa solução;
+	\item Analisar desempenho da solução implementada usando a Política de Avaliação a ser definida para verificar ganhos da nossa solução;
 		
 \end{itemize}
 
@@ -296,7 +296,7 @@ Com essa abordagem nos esperamos alcançar alguns objetivos que não encontramos
 
 \section{Metodologia}
 
-Vamos trabalhar com uma abordagem incremental, resolvendo problemas aos poucos.
+A nossa metodologia de trabalho visa uma abordagem incremental, chegando a solução de problemas complexos através da sua quebra em componentes mais simples.
 
 Num primeiro momento queremos conseguir extrair os ``templates'' de \emph{logs} de um único programa (já feito por alguns pesquisadores \cite{nagappan2010abstracting}). Em seguida queremos extrair, desse único tipo de \emph{log}, as entidades que o compõe, de forma a já correlaciona-las (isto é, saber que dois nomes, referem-se a usuários, por exemplo). Esse é uma de nossas principais contribuições, por não encontramos nenhum trabalho que faça esse tipo de geração de forma automática.
 
@@ -306,9 +306,15 @@ A última etapa do nosso trabalho é compartilhar os resultados encontrados com 
 
 \subsection{Analise de desempenho}
 
-% ----------------------------------------------------------
-% Capitulo de textual  
-% ----------------------------------------------------------
+Um dos objetivos do nosso trabalho é definir uma política de avaliação de desempenho, para podermos identificar, não só como nosso trabalho se coloca em relação a outros já realizados, como também para podermos detectar melhorias no desenvolvimento de nossa solução.
+
+Abaixo algumas das características que queremos para a nossa métrica de análise de desempenho:
+
+\begin{itemize}
+	\item Ela deve ser objetiva, isto é, ela deve produzir um valor quantitativo;
+	\item Devemos conseguir comparar os resultados de soluções já existentes, e não só a que estamos desenvolvendo;
+\end{itemize}
+
 \chapter{Referencial Teórico}\label{chap:referencial}
 
 Nesta seção apresentaremos alguns trabalhos que vem sendo executados na área de detecção de intrusões com uso de técnicas de aprendizado de máquina, trabalhos relacionados a abstração de \emph{logs}, e as realizações atuais sobre o processamento natural de linguagem. No tocante ao uso de aprendizado de máquina, vê-se que os trabalhos não se restringem somente à detecção de anomalias, com várias outras aplicações sendo realizadas. Quanto à abstração de \emph{logs}, vemos que os trabalhos se concentram somente em encontrar padrões de texto, e não na recuperação de entidades, como propomos. Por último, as técnicas de processamento natural de linguagem vem mostrando um rápido crescimento e expandindo sua aplicabilidade.
@@ -332,6 +338,10 @@ Note que incidentalmente a separação dos campos estáticos dos dinâmicos, nor
 Tento isso em vista \cite{xu2009detecting}, usa uma técnica de análise análise de código fonte para extração de \emph{templates} para abstração de logs. Enquanto o resultado obtido por eles é motivador acreditamos que a necessidade de acesos ao código é um fator limitante, pois diversas empresas ainda não estão prontas para adotar software livre ou desenvolver soluções caseiras, para todas as suas necessidades de software.
 
 \subsection{Repositório de \emph{logs} que vão ser analisados}
+
+A disponibilização de \emph{logs} de forma pública não é uma prática comum, pois pode gerar vazamento de informações. A maioria dos registros que são disponibilizados publicamente são de ambientes simulados, o que pode não refletir o um ambiente de produção de uma empresa.
+
+Para o nosso trabalho iremos utilizar o repositório de \emph{logs} \url{http://www.secrepo.com/}, que é mantido por membros da comunidade de segurança da informação. No decorrer de nosso trabalho iremos identificar quais \emph{logs} desse repositório melhor se adequarão ao nosso trabalho.
 
 \section{Processamento natural de linguagem}
 
