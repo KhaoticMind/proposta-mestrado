@@ -254,9 +254,13 @@ Para superar esse desafio, a comunidade acadêmica tem empreendido muitos esfor�
 
 Com base nessas informações, durante uma disciplina do primeiro ano do mestrado, foi feita uma revisão da literatura conduzida (ainda a ser publicada), onde revisamos vários trabalhos que vem sendo desenvolvidos na área de detecção de intrusão usando diversas técnicas que julgamos promissoras (quais sejam: aprendizado de máquina, sistemas multiagentes, sistemas de data \emph{warehouse}, visualização de dados, detecção de intrusão baseada em regras e ontologias), e identificamos que ainda existem diversos pontos de melhoria (nas soluções individuais e nas suas combinações) a serem perseguidos pela comunidade.
 
-Um ponto que nos chamou atenção durante essa revisão foi o uso de técnicas de aprendizado de máquina, e a variedade de possíveis aplicações que os pesquisadores têm encontrado dentro da área de detecção de intrusão. A detecção de invasão através da análise de \emph{logs} de sistema é importante, pois é usada para \emph{compliance} de empresas, sendo requisito de padrões de segurança como o PCI DSS e a lei Sarbanes-Oxley \cite{prakhar2012log}).
+Um ponto que nos chamou atenção durante essa revisão foi o uso de técnicas de aprendizado de máquina, e a variedade de possíveis aplicações que os pesquisadores têm encontrado dentro da área de detecção de intrusão (existe, inclusive, um grupo dedicado ao uso de técnicas de aprendizado de máquina para segurança da informação - \url{http://www.mlsecproject.org/}). 
 
-O padrão para a geração de \emph{logs} em ambientes UNIX\texttrademark (amplamente usado em ambientes de servidores \cite{w3techs-osusage}) é o \emph{syslog}. As mensagens de \emph{log} do formato syslog são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} fáceis para interpretar por humanos, mas difíceis de serem analisados por máquinas. O uso de técnicas de processamento natural de linguagem - uma sub-área do aprendizado de máquina - pode ser usada para extrair informações das entradas de logs usando técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
+Um dos campos onde identificamos potenciais ganhos com o uso de técnicas de aprendizado de máquinas, é o de analise de \emph{logs}, que detalharemos a seguir.
+
+\section{Analise de logs}
+
+A detecção de invasão através da análise de \emph{logs} de sistema é importante, pois é usada para \emph{compliance} de empresas, sendo requisito de padrões de segurança como o PCI DSS e a lei Sarbanes-Oxley \cite{prakhar2012log}). O padrão para a geração de \emph{logs} em ambientes UNIX\texttrademark (amplamente usado em ambientes de servidores \cite{w3techs-osusage}) é o \emph{syslog}. As mensagens de \emph{log} do formato syslog são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} fáceis para interpretar por humanos, mas difíceis de serem analisados por máquinas. O uso de técnicas de processamento natural de linguagem - uma sub-área do aprendizado de máquina - pode ser usada para extrair informações das entradas de logs usando técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
 
 A análise de \emph{logs} hoje em dia pode ser feita de forma manual ou automática. A primeira solução é feita gerando padrões de texto de forma manual através do uso de expressões regulares - \emph{regex}, de forma que é possível a extração das ``entidades''\footnote{Por entidades nos referimos aos hosts, ips, usuários, etc, que são referidos em uma linha de log} que compõe uma linha de \emph{log}. Já nas técnicas automáticas linhas similares são agrupadas  (com variados graus de sucesso) de forma a produzir um único ``tipo de evento``, que pode ser mais facilmente analisado, mas sem conseguir discernir os componentes de cada linha.
 
@@ -345,6 +349,8 @@ Tento isso em vista \cite{xu2009detecting}, usa uma técnica de análise anális
 %TODO: Detalhar o referencial de NLP
 A área de mineração de textos, em especial a área de extração de informações, vem realizando trabalhos similares ao nosso, mas em um outro contexto \cite{duque2012processo, matos2010environment}.
 
+\cite{bird2009natural}
+
 \section{Recursos adicionais}
 Além do embasamento teórico necessário para a realização desse trabalho, também necessitamos de algum referencial técnico (como implementações de algorítimos já conhecidos). Nessa seção falaremos sobre as bibliotecas e linguagens de programação que pretendemos usar. Além disso, ao final, comentaremos sobre quais dados usaremos para análise.
 
@@ -368,7 +374,7 @@ Além disso, a linguagem Python, por si só, possui mais algumas vantagens, que 
 	\item Facilidade de conectividade com outras linguagens de programação (\emph{bindings});
 \end{itemize}
 
-\subsection{Repositório de \emph{logs} que vão ser analisados}
+\subsection{Repositório de \emph{logs}}
 
 Um ponto crucial para a realização de nossa trabalho são os \emph{logs} que iremos analisar e usar para desenvolver nossa solução. Para o melhor de nosso conhecimento, todos os outros trabalhos que focaram em técnicas de abstração de \emph{logs} o fizeram usando dados de ambientes de produção, e que não estão disponíveis publicamente.
 
@@ -392,90 +398,127 @@ Invalid user root from 116.255.160.32
 Invalid user mancha from 116.255.170.55
 \end{verbatim}
 	
-Todas essas entradas tem o mesmo ``formato``: \verb|Invalid user * from *|, onde os asteríscos (\emph{*}), se referem aos campos variáveis das entradas (ou seja, os que podem assumir valores diferentes), os outros campos (\emph{invalid}, \emph{user}, \emph{from}), são ditos, \emph{campos estáticos}. Ou seja, os três eventos acima podem ser \emph{abstraídos}, para um único \emph{tipo} de evento. 
+Todas essas entradas tem o mesmo ``formato``: \verb|Invalid user * from *|, onde os asteríscos (\emph{*}), se referem aos campos variáveis das entradas (ou seja, os que podem assumir valores diferentes), os outros campos (\emph{invalid}, \emph{user}, \emph{from}), são ditos, \emph{campos estáticos}. Ou seja, as trÊs entradas de \emph{log} acima podem ser \emph{abstraídas}, para um único \emph{tipo} de evento. 
 
 De forma mais específica podemos dizer que as linhas acimas possuem um outro formato: \verb|Invalida user <user> from <ip>|, onde \verb|<user>| e \verb|<ip>| são \emph{placeholders} para o tipo de entidade a que o campo variável se refere. Ou seja, enquanto a abstração que vimos anteriormente permite identificarmos quais posições do \emph{log} são variáveis, a segunda abstração nos permite identificar a que essas posições se referem.
 
 Essas abstrações são muito úteis na comunidade da segurança da informação. A primeira abordagem permite uma redução significativa no número de eventos tratados por um analista de segurança. No entanto, a segunda forma de abstração da uma capacidade de correlação aos eventos não disponível até então. Vamos tomar como exemplo as seguintes entradas:
 
-%TODO: DAR EXEMPLO DE CORRELAÇÃO ENTRE LOGS DIFERENTES
+{\small
+\begin{verbatim}
+lightdm: pam_unix(lightdm:session): session opened for user rogerio by (uid=0)
+sudo:   rogerio : TTY=pts/3 ; PWD=/home/rogerio ; USER=root ; COMMAND=/bin/ls /root
+sudo: pam_unix(sudo:session): session opened for user root by rogerio(uid=0)
+sudo: pam_unix(sudo:session): session closed for user root
+\end{verbatim}
+}
 
 Se realizarmos a abstração de \emph{log} nessas entradas, detectando as suas entidades, poderemos chegar aos seguintes eventos:
 
-%TODO: DAR EXEMPLO DE CORRELAÇÃO ENTRE LOGS DIFERENTES -> Com abstração
+{\small
+\begin{verbatim}
+lightdm: pam_unix(lightdm:session): session opened for user <user> by (uid=<uid>)
+sudo:   <user> : TTY=<tty> ; PWD=<pwd> ; USER=<user> ; COMMAND=<command>
+sudo: pam_unix(sudo:session): session opened for user <user> by <user>(uid=<uid>)
+sudo: pam_unix(sudo:session): session closed for user <user>
+\end{verbatim}
+}
 
-Dessa forma um analista de segurança pode saber que um usuário chamado \emph{rogerio} fez login no sistema e logo em seguida esse mesmo usuário executou o comando \emph{sudo}. Só podemos depreender isso dessas informações pois sabemos que os campos, em \emph{logs} de tipos diferentes (\emph{logs} heterogêneos) possuem uma entidade em comum (usuário).
+Dessa forma um analista de segurança pode saber que um usuário chamado \emph{rogerio} fez login no sistema e logo em seguida esse mesmo usuário executou um comando usando o \emph{sudo}. Só podemos depreender isso dessas informações pois sabemos que os campos, em \emph{logs} de tipos diferentes (\emph{logs} heterogêneos) possuem uma entidade em comum (usuário).
 
 Apesar das obvias vantagens da abstração de \emph{logs}, ela não é amplamente aplicada, pois necessita do esforço manual do analista de segurança para a geração de regras para a identificação do formato dos \emph{logs}, um trabalho que consome muito tempo, está sujeito a falhas, e pode ser comprometido pela mudança da estrutura dos \emph{logs} gerados pelos sistemas (fora do controle do analista).
 
-Para superar essa barreira, é necessário mecanismos para a abstração automática de eventos. No entanto, os trabalhos acadêmicos que encontramos se concentram em automatizar somente o primeiro caso que mostramos aqui \cite{vaarandi2003data, nagappan2010abstracting}, agrupando (com variável sucesso) tipos parecidos de \emph{logs}.
+A identificação de entidades também é importante para aplicação de outras técnicas de detecção de intrusão (onde imaginamos que nossa solução será inserida). A detecção de anomalias (uma técnica de detecção de intrusão), por exemplo, não apresenta desempenho satisfatório quando usamos somantes as informações textuais para procurar por ataques. O trabalho apresentado em \cite{li2013automatic} mostra isso.
 
-Nesse sentido o uso das técnicas de processamento de linguagem natural (PNL; NLP na sigla em inglês) podem ajudar a evoluir esse conceito. Podemos usar o PNL para encontrar o significado de uma frase (positivo ou negativo) e tentar encontrar as entidades referenciadas em uma dada linha de \emph{log} (usuário, IP de origem, sistema impactado, etc). Podemos ainda correlacionar automaticamente o mesmo tipo de entidade em diferentes \emph{logs} (mesmo entre aplicações diferentes).  Nesse sentido fomos inspirados pelos trabalhos apresentados em \cite{matos2010environment, duque2012processo}.
+Por outro lado, o trabalho apresentado em \cite{yen2013beehive} mostra bons resultados na detecção de intrusão através da análise de alguns tipos específicos de \emph{logs}, quando é feito um pré-processamento dos dados e deles são retirados um conjunto ``interessante'' de informações. Esse mesmo ganho é comprovado em \cite{xu2009detecting}, onde foi desenvolvido um método automático de retirada de informações semânticas dos \emph{logs}. No entanto, a técnica usada neste trabalho envolve a análise do código fonte da aplicação que gera os \emph{logs}. Em ambientes de grandes empresas nem sempre os softwares usados são de código aberto, o que torna essa técnica impossível de ser aplicada.
+
+\section{Processamento natural de linguagem e extração de entidades}
+Para superar essa barreira, são necessários mecanismos que permitam a abstração automática de eventos. No entanto, os trabalhos acadêmicos que encontramos se concentram em automatizar somente o primeiro caso de abstração que mostramos anteriormente \cite{vaarandi2003data, nagappan2010abstracting}, agrupando (com variável sucesso) tipos parecidos de \emph{logs}, mas sem identificar a quais entidades as partes variáveis se referem.
+
+Nesse sentido o uso das técnicas de processamento de linguagem natural (PNL; NLP na sigla em inglês) pode ajudar a evoluir esse conceito. Podemos usar o PNL para encontrar o significado de uma frase (positivo ou negativo) e tentar encontrar as entidades referenciadas em uma dada linha de \emph{log} (usuário, IP de origem, sistema impactado, etc). Podemos ainda correlacionar automaticamente o mesmo tipo de entidade em diferentes \emph{logs} (mesmo entre aplicações diferentes).  Nesse sentido fomos inspirados pelos trabalhos apresentados em \cite{matos2010environment, duque2012processo}.
+
+Além disso, acreditamos que as técnicas de PNL, podem nos ajudar a melhor classificar as entidades. Por exemplo, observe as entradas de log abaixo:
+
+{\tiny
+	\begin{verbatim}
+	refused connect from 192.168.0.1:1231 to procedure ypproc_domain_nonack 
+	connect to 192.168.0.1:25: Connection timed out
+	\end{verbatim}
+}
+
+Enquanto a entidade \emph{192.168.0.1}, aparece nas duas entradas de logs (e nos dois casos ela é um IP), ela tem contextos diferentes. No primeiro caso a entidade é um IP de origem (isto é, está originando a ação), no segundo caso ela é o IP de destino (recebe uma ação). Esse tipo de diferença é importante durante o processo de análise de \emph{logs} e poder servir de insumo para tomada de decisões. Nesse caso, observe que o tipo da entidade, é indicada pelo contexto do \emph{log}, e as indicações do texto (a precedência das palavras \emph{from} e \emph{to}), indicam o tipo de cada uma das entidades.
 
 Os avanços que esperamos alcançar aqui também podem gerar impactos no processo de consolidação de dados, um grande desafio existente hoje, não só nos IDSs como também para qualquer sistema de \emph{Big Data} \cite{zuech2015intrusion}. Em especial, se a classificação automática de entidades puder se feita de forma online (durante o  \emph{streaming} de dados), podemos começar a trabalhar de forma muito mais rápida, e com menor tempo de reação, para novos ataques, através da integração continua de dados.
 
 \section{Proposta de Implementação}\label{sec:implementacao}
-%TODO -> Ler e revisar essa parte
-A nossa ideia é desenvolver um algoritmo que permite a detecção de padrões em \emph{logs} de sistemas. A principal diferença de nossa abordagem para as que existem hoje em dia, é que não queremos somente agrupar \emph{logs} similares, como em \cite{vaarandi2003data}, mas também detetar ``entidades'' dentro dos \emph{logs}, através de técnicas de mineração de texto.
 
-A extração de entidades vai permitir a aplicação de técnicas de aprendizado de máquina em todo a massa de \emph{logs}, visto que, para um melhor desempenho de técnicas de aprendizado de máquina é necessário que as entidades estejam identificadas.
+Dado o exposto anteriormente, o nosso objetivo com esse trabalho é um algoritmo, e implementar um solução de software, que permita a detecção de padrões em \emph{logs} de sistemas. A principal diferença de nossa abordagem para as que existem hoje em dia, é que não queremos somente agrupar \emph{logs} similares, como em \cite{vaarandi2003data}, mas também detectar ``entidades'' dentro dos \emph{logs}, através de técnicas de mineração de texto.
 
-Por exemplo, observando-se as seguintes linhas de \emph{log}:
+Nós visualizamos nossa solução sendo usada como a primeira etapa de processamento para o recebimento de \emph{logs}, de forma a sua saída (os \emph{logs}, agrupadas e com suas entidades categorizadas), possa ser armazenado para posterior consumo (por humanos ou por outras soluções de software).
 
-{\tiny
-	\begin{verbatim}
-	alien12 sshd[16448]: Invalid user developer from 116.255.160.35
-	alien12 sshd[16448]: pam_unix(sshd:auth): check pass; user unknown
-	alien12 sshd[16448]: pam_unix(sshd:auth): authentication failure; logname= uid=0 
-	euid=0 tty=ssh ruser= rhost=116.255.160.35 
-	alien12 sshd[16448]: Failed password for invalid user developer from 116.255.160.35 port 33732 ssh2
-	alien12 sshd[17551]: Invalid user developer from 116.255.160.35
-	alien12 sshd[17551]: pam_unix(sshd:auth): check pass; user unknown
-	alien12 sshd[17551]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 
-	tty=ssh ruser= rhost=116.255.160.35 
-	alien12 sshd[17551]: Failed password for invalid user developer from 116.255.160.35 port 34084 ssh2
-	alien12 sshd[18758]: Invalid user developer from 116.255.160.35
-	\end{verbatim}
-}
+Durante o desenvolvimento do nosso projeto, também será elaborada um métrica para avaliar o desempenho de nossa solução, quando comparada com as demais.
 
-nós pretendemos extrair as seguintes informações:
-
-\begin{itemize}
-	\item \textbf{user}: developer	
-	\item \textbf{src\_ip}: 116.255.160.35	
-	\item \textbf{port}: 33732, 34084	
-	\item \textbf{uid}: 0	
-	\item \textbf{euid}: 0	
-	\item \textbf{tty}: ssh 
-\end{itemize}
-
-Explicar o que queremos extrair, e correlacionar. Falando como no exemplo
-
-Observe que essas informações foram extraídas de um único tipo de evento (\emph{logs} do servidor sshd), mas é nossa intenção que as entidades possam ser correlacionadas entre entradas de \emph{logs} de programas diferentes.
-
-Além disso queremos usar informações do texto para melhor classificar as entidades.
-Por exemplo, observe as entradas de log abaixo:
-
-{\tiny
-\begin{verbatim}
-refused connect from 192.168.0.1:1231 to procedure ypproc_domain_nonack 
-connect to 192.168.0.1:25: Connection timed out
-\end{verbatim}
-}
-
-Enquanto a entidade 192.168.0.1, aparece nas duas entradas de logs (e nos dois casos ela é um IP), ela tem contextos diferentes. No primeiro caso a entidade é um IP de origem (isto é, está originando a ação), no segundo caso ela é o IP de destino (recebe uma ação). Esse tipo de diferença é importante durante o processo de análise de logs e poder servir de insumo para tomada de decisões.
-
-Nesse caso, observe que o tipo da entidade, é indicada pelo contexto do \emph{log}, e as indicações do texto (a precedência das palavras \emph{from} e \emph{to}), indicam o tipo de cada uma das entidades.
-
-\cite{bird2009natural}
-
-\subsection{Criação de implementação}
-
-- Análise de desempenho
 
 \chapter{Cronograma}\label{chap:cronograma}
 
+O desenvolvimento deste trabalho se dará da seguinte forma:
+
+\begin{enumerate}
+	\item \label{rev-bibli} Revisão bibliográfica;
+	\item \label{esc-base} Escolha de base de dados para análise;
+	\item \label{imp-outras} Coleta/Implementação de outras soluções de abstração de \emph{logs};
+	\item \label{def-pol} Definição de politica de análise de desempenho;
+	\item \label{est-nltk} Estudo da biblioteca NLTK;
+	\item \label{algo-abs} Definição de algorítimo para abstração de \emph{logs};
+	\item \label{algo-clas} Definição de algorítimo para classificação de entidades;
+	\item \label{imp-sol} Implementação da solução de software;
+	\item \label{ava-des} Avaliação de desempenho da solução implementada;
+	\item \label{esc-dis} Escrita da Dissertação;
+	\item \label{pub-art} Publicação de artigos;	
+\end{enumerate}
+
+\begin{table}[!htbp]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		&\multicolumn{5}{c|}{2016}&\multicolumn{5}{c|}{2017}\\
+		\hline
+		&AGO&SET&OUT&NOV&DEZ&JAN&FEV&MAR&ABR&MAI\\
+		\hline
+		\ref{rev-bibli}& \textbullet & \textbullet & \textbullet & \textbullet & \textbullet & \textbullet & \textbullet & \textbullet & \textbullet & \textbullet \\
+		\hline
+		\ref{esc-base}& \textbullet & \textbullet &&&&&&&&\\
+		\hline
+		\ref{imp-outras}& \textbullet &\textbullet & \textbullet &&&&&&&\\
+		\hline
+		\ref{def-pol}& &&&\textbullet &\textbullet &&&&&\\
+		\hline
+		\ref{est-nltk}&&\textbullet &\textbullet &\textbullet &\textbullet &&&&&\\
+		\hline
+		\ref{algo-abs}& &&\textbullet&\textbullet&\textbullet&&&&&\\
+		\hline
+		\ref{algo-clas}& &&&\textbullet&\textbullet&\textbullet&\textbullet&&&\\
+		\hline
+		\ref{imp-sol}&&&&&&\textbullet&\textbullet&\textbullet&&\\
+		\hline
+		\ref{ava-des}&&&&&&&\textbullet&\textbullet&\textbullet&\textbullet\\
+		\hline
+		\ref{esc-dis}&&&&&&\textbullet&\textbullet&\textbullet&\textbullet&\textbullet\\
+		\hline				
+		\ref{pub-art}& & & & & \textbullet & & & & & \textbullet \\
+		\hline					
+	\end{tabular}
+\end{table}
+
 \chapter{Conclusão}\label{chap:conclusao}
+Nessa proposta apresentamos a nossa ideia para implementação de uma solução de abstração de \emph{logs} com o uso de técnicas de processamento natural de linguagem.
+
+Durante essa proposta apresentamos a lacuna existente hoje nas pesquisas de abstração de \emph{logs}, onde não identificamos nenhuma solução que possa realizar a extração de entidades dos \emph{logs} (que mostramos ser de grande importância, para o analista de segurança, e para a implementação de técnicas de detecção de intrusão). Também mostramos como acreditamos que as técnicas de processamento natural de linguagem pode ajudar na identificação de entidades (e de seus contextos).
+
+Apresentamos também os dados e as tecnologias que pretendemos usar durante o desenvolvimento do nosso trabalho (lignuagem de programação Python, bibliotecas NLTK e scikit-learn, e o repositório de \emph{logs} \url{http://www.secrepo.com}{SecRepo}).
+
+%Mostramos a necessidade da abstração de \emph{logs} (para facilitar o trabalho dos analistas de segurança e também de oferecer ao mesmo novos mecanismos de análise), e como a mesma ainda está sendo feita, em grande parte de forma manual.
+
 % ---
 % Finaliza a parte no bookmark do PDF
 % para que se inicie o bookmark na raiz
