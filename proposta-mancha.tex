@@ -99,7 +99,7 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Utilização de Processamento Natural de Linguagem Abstração de Logs}
+\titulo{Utilização de Processamento Natural de Linguagem para Abstração de Logs}
 \autor{Antonio Augusto Oliveira Viana Santos}
 \local{Brasil}
 \data{07-2016}
@@ -246,108 +246,38 @@
 
 Durante os últimos anos, a segurança da informação tem sido uma grande preocupação para todos os usuários da Internet, devido aos diversos ataques que vem sendo perpetrados por meio dessa rede global. Por exemplo, segundo dados do CERT.br, o número total de notificações de incidentes de segurança superou a marca de um milhão em 2014, um aumento de mais de 200\% em relação ao ano anterior \cite{incidentes2015incidentes}. Para tentar mitigar esses incidentes a comunidade de segurança da informação vem desenvolvendo ferramentas e padrões para tornar os sistemas de informação mais seguros, de modo a dificultar o acesso a informações valiosas à pessoas não autorizadas. No entanto, os profissionais da área concordam em afirmar que não existe um sistema de segurança perfeito, apesar das técnicas e aplicações desenvolvidas \cite{dua2011data}.
 
-Por esse motivo, as entidades que precisam de mais segurança optam por implantar Sistemas de Detecção de Intrusão (IDS, na sigla em inglês). O objetivo desses sistemas não é evitar que pessoas não autorizadas tenham acesso aos sistemas e/ou dados, mas detectar quando tais tentativas ocorram. Os primeiros trabalhos sobre IDSs são da década de 80 \cite{anderson1980computer, denning1987intrusion} e a partir de então vários trabalhos tem sido realizados para garantir que os IDSs possam sempre atender às demandas dos ambientes onde estão inseridos. Um dos principais desafios enfrentados por esses sistemas é o grande volume de dados que devem ser analisados, processados e exibidos de forma intuitiva para o usuário final \cite{big2013big, nassar2013secure}.
+Por esse motivo, as empresas que precisam de mais segurança optam por implantar Sistemas de Detecção de Intrusão (IDS, na sigla em inglês). O objetivo desses sistemas não é evitar que pessoas não autorizadas tenham acesso aos sistemas e/ou dados, mas detectar quando tais tentativas ocorram. Os primeiros trabalhos sobre IDSs são da década de 80 \cite{anderson1980computer, denning1987intrusion} e a partir de então vários trabalhos tem sido realizados para garantir que os IDSs possam sempre atender às demandas dos ambientes onde estão inseridos. Um dos principais desafios enfrentados por esses sistemas é o grande volume de dados que devem ser analisados, processados e exibidos de forma intuitiva para o usuário final \cite{big2013big, nassar2013secure}.
 
-Além disso, estas tentativas de invasão através da Internet ou de outra rede de computadores, estão se tornando mais elaborados devido à constante criação de novos ataques ou de variantes de ataques existentes \cite{zuech2015intrusion}. Dessa maneira acredita-se que o futuro da deteção de intrusão depende de melhorias na deteção baseada em anomalias, visto que a deteção baseada em assinaturas oferece pouca capacidade de lidar com a velocidade com que novos ataques são gerados.
+%Além disso, estas tentativas de invasão através da Internet ou de outra rede de computadores, estão se tornando mais elaboradas devido à constante criação de novos ataques ou de variantes de ataques existentes \cite{zuech2015intrusion}. Dessa maneira acreditamos que o futuro da deteção de intrusão depende de melhorias na deteção baseada em anomalias, visto que a deteção baseada em assinaturas oferece pouca capacidade de lidar com a velocidade com que novos ataques são gerados.
 
-Para superar esse desafio, a comunidade acadêmica tem empreendido muitos esforços na busca de melhores arquiteturas para solução de deteção de intrusão, buscando, inclusive, inspiração (e técnicas) que obtiveram sucesso em outras áreas da computação. No entanto, para criar uma solução de IDS realmente inteligente, devemos combinar várias tecnologias atualmente disponíveis (traçando um paralelo com \cite{schales2011stream}). Uma solução de IDS realmente inteligente é aquela que possa detectar, de forma autônoma, vários ataques e que ofereça \emph{feedback} relevante para os seus usuários.
+Sobre dados que precisam ser analisados, os registros gerados durante a operação dos sistemas de computação são de grande importância. Os registros a que nos referimos são costumeiramente chamados de \emph{logs}. A deteção de invasão por meio da análise de \emph{logs} é importante pois é usada para que empresas estejam aderentes a políticas de segurança dos seus meios de atuação. Por exemplo, o padrão \emph{PCI DSS} e a lei \emph{Sarbanese Oaxley} têm esse requisito.
 
-Com base nessas informações, durante uma disciplina do primeiro ano do mestrado, fizemos uma revisão da literatura (ainda a ser publicada)  na área de deteção de intrusão. Nessa revisão identificamos diversas técnicas que parecem ser promissoras: aprendizado de máquina, sistemas multiagentes, sistemas de data \emph{warehouse}, visualização de dados e deteção de intrusão baseada em regras e ontologias. No entanto notamos que ainda existem diversos pontos de melhoria nas soluções individuais e nas suas combinações.
+Para que a análise de \emph{logs} possa ser feita de forma efetiva e que dê o retorno esperado pelas equipes de segurança da informação temos de levantar dois pontos importantes: 1) o volume de dados gerados; e 2) a falta de estrutura dos logs.
 
-Um ponto que nos chamou atenção durante essa revisão foi o uso de técnicas de Aprendizado de Máquina. Os pesquisadores tem encontrado várias possibilidades de aplicação dessas técnicas, dentro da área de deteção de intrusão. Essas técnicas se mostram tão promissoras que já existem grupos na indústria para tratar dessas soluções, como por exemplo \cite{mlsecproject}.
+No primeiro caso, a mesma caractéristica que dá aos \emph{logs} sua importância, é o que torna difícil seu manuseio: a grande quantidade de informações que eles possuem \cite{brugger2001data,miranskyy2016data,nagappan2010abstracting,vaarandi2003data}. O volume de dados gerado por sistemas de computador é demasiado para uma análise manual. Por essa razão diversas pesquisas sobre a aplicação de técnicas de mineração de dados e de aprendizado de máquina tem sido feitas recentemente para retirar informação dos \emph{logs}.
 
-Um dos campos onde identificamos potenciais ganhos com o uso de técnicas de aprendizado de máquinas, é o de análise de \emph{logs}, que detalharemos a seguir.
+Já sobre sua falta de estrutura, podemos tomar como exemplo os sistemas operacionais baseados em UNIX\texttrademark. Esse tipo de sistema é amplamente usados em servidores \cite{w3techs-osusage}. O padrão para a geração de \emph{logs} nesse tipo de ambiente é o \emph{syslog}. Nesse formato as entradas são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} de fácil interpretação por humanos. No entanto, isso os torna difíceis de serem analisados por máquinas. 
 
-\section{Detecção de Intrusão através da Análise Logs}
-%TODO: Explicar o que são logs e a importância de sua análise
-%TODO: Explicar o termo compliance
-%TODO: Substituir primeira referência a logs por "registro de eventos ..."
-A deteção de invasão por meio da análise de \emph{logs} de sistema é importante, pois é usada para \emph{compliance} de empresas, sendo requisito de padrões de segurança como o \emph{PCI DSS} e a lei \emph{Sarbanes-Oxley} \cite{prakhar2012log}).
-
-Servidores UNIX\texttrademark  são amplamente usado em ambientes de servidores \cite{w3techs-osusage}. O padrão para a geração de \emph{logs} nesse tipo de ambiente é o \emph{syslog}. Nesse formato as entradas são em texto plano e, em sua maioria, escritas em linguagem corrente. O uso de linguagem corrente torna esses \emph{logs} de fácil interpretação por humanos. No entanto, isso os torna difíceis de serem analisados por máquinas. 
+Um maneira de sanar esses dois problemas, é através da abstração de \emph{logs}.
+%TODO: 17/07/2016 -> Falar da abstração agora!
 
 %TODO: Falar da ligação entre abstração de logs e a análise de logs
-A análise de \emph{logs} hoje em dia pode ser feita de forma manual ou automática. A primeira solução é feita gerando padrões de texto de forma manual através do uso de expressões regulares (\emph{regex}), de forma que é possível a extração das ``entidades'' que compõe uma linha de \emph{log}. Por entidades nos referimos aos \emph{hosts}, \emph{ips}, usuários, etc, que são referidos em uma linha de \emph{log}. Já nas técnicas automáticas linhas similares são agrupadas (com variados graus de sucesso) de forma a produzir um único ``tipo de evento``, que pode ser mais facilmente analisado, mas sem conseguir discernir os componentes de cada linha.
+A abstração de \emph{logs} hoje em dia pode ser feita de forma manual ou automática. A primeira solução é feita gerando padrões de texto de forma manual através do uso de expressões regulares (\emph{regex}). Desta forma é possível a extração das ``entidades'' que compõe uma linha de \emph{log}. Por entidades nos referimos aos \emph{hosts}, \emph{ips}, usuários, etc, que são referidos em uma linha de \emph{log}.
 
-%TODO: Fazer o link com PNL
+Já nas técnicas automáticas linhas similares são agrupadas de forma a produzir um único ``tipo de evento``, que pode ser mais facilmente analisado, mas sem conseguir discernir as entidades de cada linha. O sucesso desse tipo de agrupamento tem se mostrado insuficiente, e ainda não é amplamente usado.
+
 %(PNL; NLP na sigla em inglês)
 %Técnicas de Processamento Natural de Linguagem (PNL) podem ser usadas para extrair informações das entradas de \emph{logs} usando técnicas de extração e recuperação de informação \cite{bird2009natural,manning2008introduction}.
 
-A ideia do uso da linguagem natural é permitir a geração automática de expressões regulares que consigam, não só agrupar linhas de \emph{logs} similares, mas que também possam detectar as entidades presentes nessas linhas. Além disso é importante que as entidades possam ser correlacionadas entre tipos de eventos diferentes (isto é, saber que dois campos em entradas de \emph{logs} diferentes se referem à entidade usuário).
+Para tentar alcançar um melhor ganho no processo de abstração de \emph{logs} sugerimos o uso de Processamento Natural de Linguagem (PNL; NLP na sigla em inglês) para realizar a abstração. A ideia do uso do PNL é permitir a geração automática de expressões regulares que consigam agrupar linhas de \emph{logs} similares e detectar as entidades presentes nessas linhas. Além disso é importante que as entidades possam ser correlacionadas entre tipos de eventos diferentes. Por exemplo, saber que dois campos em entradas de \emph{logs} diferentes se referem à entidade usuário.
 
 Além da aplicabilidade para a análise de \emph{logs}, acreditamos que o uso do processamento natural de linguagem em registros gerados por computadores pode gerar um impacto positivo na área de armazenamento de dados. Esse ganho é alcançado principalmente quando consideramos o cenário de aquisição de dados heterogêneos, necessário para um melhor desempenho dos IDSs \cite{zuech2015intrusion}.
 
 Essa proposta é dividida da seguinte forma: no Capítulo \ref{chap:referencial} apresentamos o referencial teórico de suporte ao nosso trabalho; no Capítulo \ref{chap:proposta} apresentaremos nossa proposta e seus impactos, inicialmente, em alto nível, e a seguir serão mostrados alguns dos detalhes técnicos do que esperamos alcançar com nosso trabalho; por último, no Capítulo \ref{chap:cronograma} mostraremos um cronograma das atividades para o próximo ano.
 
-\subsection{Objetivos}
-O objetivo geral deste trabalho é o de estudar técnicas de PNL que possam permitir a identificação de entidades dentro dos \emph{logs}.
-
-Como objetivos específicos podemos citar:
-\begin{itemize}
-	\item Estudar as várias soluções de abstração de \emph{logs} e de PNL, dentro da comunidade acadêmica;
-
-	\item Pesquisar ferramentas que implementem algoritmos de PNL e que possivelmente possam ser utilizadas em nosso trabalho;
-	
-	\item Definir algortimo para abstração de \emph{logs} que permita a identificação de entidades;
-		
-	\item Implementar um produto de software usando as técnicas estudadas, com a finalidade de gerar abstrações de \emph{logs} que possam detetar as entidades que o compõe;
-	
-	\item Definir uma Política de Avaliação para podermos analisar os resultados de nosso trabalho em comparação com os já existentes na literatura;
-
-\end{itemize}
-
-Com essa abordagem nos esperamos alcançar alguns objetivos que não encontramos em nenhum outro ponto da literatura:
-
-\begin{itemize}
-	\item Definir uma política de avaliação da capacidade de abstração de \emph{logs}, que pode ser usado para avaliar novas ferramentas;
-	\item Definir uma nova forma de abstração de \emph{logs}, que consegue detectar o tipo de entidade presente nos \emph{logs};
-\end{itemize}
-
-\subsection{Trabalhos relacionados}
-Existem diversos trabalhos na área de abstração de \emph{logs} (a técnica de agrupar eventos similares), como por exemplo \cite{jian2008automated, nagappan2010abstracting, vaarandi2003data}. Esses trabalhos se baseiam, em sua maioria, no uso de técnicas estatísticas (aprendizado de máquina e de mineração de dados) para gerar os agrupamentos de \emph{logs}. Entre essas técnicas podemos citar o uso de algorítimos como \emph{frequente itemset} e algorítimos de clusterização. Nenhum desses trabalhos se preocupa em categorizar os campos variáveis de uma entrada de \emph{log}, chegando, até mesmo, a normalizá-las (anonimizar).
-
-É importante notar que existem outras abordagens para a abstração de \emph{logs}, como a apresentada em \emph{xu2009detecting}, onde a abstração é feita a partir do código fonte da aplicação, e não das entradas de \emph{log} geradas. Enquanto essa abordagem obteve grande sucesso no trabalho apresentado, acreditamos que o acesso ao código-fonte das aplicações ainda não é ubíqua, em especial em grandes empresas, e por isso ainda não é uma solução viável para todos os casos. 
-
-\section{Metodologia}
-
-A nossa metodologia de trabalho visa uma abordagem incremental, chegando a solução de problemas complexos através da sua quebra em componentes mais simples.
-
-A primeira etapa de nossa abordagem é a extração de ``eventos'' a partir \emph{logs} de um único programa (possivelmente utilizando uma das técnicas já disponíveis).
-
-Em seguida queremos extrair, desse único tipo de evento, as entidades que o compõe, de forma a correlaciona-las (isto é, saber que dois nomes, referem-se a usuários, por exemplo). Esse é uma de nossas principais contribuições, por não encontramos nenhum trabalho que faça esse tipo de geração de forma automática.
-
-A seguir queremos correlacionar as entidades através de tipos de eventos diferentes, ou seja, saber quais campos, de diferentes tipos de \emph{logs}, se referem a um usuário ou a um \emph{host}, por exemplo.
-
-Em todas as etapas iremos, quando possível, comparar nossas resultados com os obtidos em outros trabalhos, através de nossa metodologia de avaliação.
-
-A última etapa do nosso trabalho é compartilhar os resultados encontrados com a comunidade acadêmica, através da publicação de artigos em congressos com Qualis, e  da elaboração de uma dissertação de mestrado, ou da compilação de artigos publicados;
-
-\subsection{Analise de desempenho do algoritimo}
-
-Um dos objetivos do nosso trabalho é definir uma política de avaliação de desempenho, para podermos identificar, não só como nosso trabalho se coloca em relação a outros já realizados, como também para podermos detectar melhorias no desenvolvimento de nossa solução.
-
-Abaixo algumas das características que queremos para a nossa métrica de análise de desempenho:
-
-\begin{itemize}
-	\item Ela deve ser objetiva, isto é, ela deve produzir um valor quantitativo;
-	\item Devemos conseguir comparar os resultados de soluções já existentes, e não só a que estamos desenvolvendo;
-\end{itemize}
-
 \chapter{Referencial Teórico}\label{chap:referencial}
 
 Nesta seção apresentaremos alguns trabalhos que vem sendo executados na área de deteção de intrusões com uso de técnicas de aprendizado de máquina, trabalhos relacionados a abstração de \emph{logs}, e as realizações atuais sobre o processamento natural de linguagem. No tocante ao uso de aprendizado de máquina, vê-se que os trabalhos não se restringem somente à deteção de anomalias, mas possuem também várias outras aplicações. Quanto à abstração de \emph{logs}, vemos que os trabalhos se concentram em encontrar padrões de texto, e não na recuperação de entidades, como propomos. Por último, as técnicas de processamento natural de linguagem vem mostrando um rápido crescimento e expandindo sua aplicabilidade.
-
-\section{Aprendizado de Máquina (\emph{Machine Learning})}\title{sec:aprendizado_de_maquina}
-%TODO: Confirmar que IDS já foi definido
-O uso de técnicas de Aprendizado de Máquina (do inglês, \emph{Machine Learning}) começou a ser explorada na área de deteção de intrusões focando em melhorias na deteção de anomalias em IDSs, visto que a maioria dos sistemas hoje usam técnicas de deteção por assinatura, o que restringe sua ação para deteção de variações de ataques existentes, ou mesmo de novos ataques. Essas técnicas, e a mineração de dados, de forma geral, tem apresentado bons resultados nesse sentido \cite{dua2011data, yen2013beehive, zomlot2013aiding, ganapathy2012intelligent, li2013automatic, joseph2012machine}.
-
-Em \cite{yen2013beehive} é apresentado um trabalho com o uso de técnicas de clusterização (uma variação do algoritmo K-means\cite{ball1967clustering}), para a deteção de possíveis infecções de \emph{malwares} em sistemas conectados à Internet através da análise de \emph{logs} de \emph{proxies}, servidores de VPN, DHCP e controladores de domínio Microsoft Windows \texttrademark. Os resultados apresentados nesse trabalho são extremamente relevantes e encorajadores, por duas razões: i) o sistema conseguiu identificar mais de 750 incidentes, dos quais apenas 8 haviam sido detectados anteriormente por sistemas de segurança já usados na empresa onde o estudo foi realizado; ii) o trabalho é feito com um volume grande de informações (cerca de 1 Tb/dia), claramente um desafio relacionado à \emph{Big Data}. No trabalho são mostradas técnicas para a redução do volume de dados e para a seleção de \emph{features} para análise.
-
-Ainda no campo de deteção de anomalias, em \cite{li2013automatic} bons resultados são alcançados através da combinação de técnicas diferentes de aprendizado de máquina. Nesse trabalho são apresentados dois algoritmos aplicados sequencialmente: o primeiro usado para criar meta-eventos, e o segundo para classificação, usando esses meta-eventos (ao invés dos eventos em si). Nesse trabalho são usados os algoritmos SOM \cite{kohonen1989self}, para gerar os meta-eventos e o DBSCAN \cite{ester1996density}, para a agregação dos meta-eventos.
-
-Mas, além da deteção de anomalias, outro campo que tem recebido muita pesquisa na academia é o uso de mineração de dados para lidar com o grande volume de alertas gerados pelos IDSs baseados em regras usados atualmente. O trabalho apresentado em \cite{zomlot2013aiding}, por exemplo, utiliza a aprendizagem de máquina para tentar priorizar os incidentes: um modelo aprende a opinião de analistas sobre a prioridade dos alertas, e esse conhecimento, posteriormente, é replicado pelo sistema, priorizando automaticamente os alertas.
-
-Outros trabalhos tentam preencher a lacuna na correlação de eventos de segurança, de forma a identificar a relação entre eventos distintos \cite{smith2008using, stroeh2013approach}.
 
 \section{Abstração de Logs}\title{sec:informacao}
 %TODO: Escrever relação entre eventos de sistemas de computação e logs
@@ -367,39 +297,11 @@ Em \cite{duque2012processo} é mostrado que existem, basicamente, duas abordagen
 
 O uso de técnicas de PNL \emph{Part-of-Speech} é comumente usada para identificar as classes gramaticais de uma sentença. Essa técnica combina a identificação de classes gramaticais com técnicas de aprendizado de máquina supervisionados para, após serem treinadas, poderem reconhecer as classes gramáticas das palavras.
 
-\section{Recursos adicionais}
-Além do embasamento teórico necessário para a realização desse trabalho, também necessitamos de algum referencial técnico (como implementações de algorítimos já conhecidos). Nessa seção falaremos sobre as bibliotecas e linguagens de programação que pretendemos usar. Além disso, ao final, comentaremos sobre quais dados usaremos para análise.
+\section{Trabalhos relacionados}
+Existem diversos trabalhos na área de abstração de \emph{logs} (a técnica de agrupar eventos similares), como por exemplo \cite{jian2008automated, nagappan2010abstracting, vaarandi2003data}. Esses trabalhos se baseiam, em sua maioria, no uso de técnicas estatísticas (aprendizado de máquina e de mineração de dados) para gerar os agrupamentos de \emph{logs}. Entre essas técnicas podemos citar o uso de algorítimos como \emph{frequente itemset} e algorítimos de clusterização. Nenhum desses trabalhos se preocupa em categorizar os campos variáveis de uma entrada de \emph{log}, chegando, até mesmo, a normalizá-las (anonimizar).
 
-\subsection{Bibliotecas de processamento natural de linguagem}
+É importante notar que existem outras abordagens para a abstração de \emph{logs}, como a apresentada em cite{xu2009detecting}, onde a abstração é feita a partir do código fonte da aplicação, e não das entradas de \emph{log} geradas. Essa abordagem obteve grande sucesso no trabalho apresentado. Apesar disso, acreditamos que o acesso ao código-fonte das aplicações ainda não é ubíqua, em especial em grandes empresas, e por isso ainda não é uma solução viável para todos os casos. 
 
-Nosso objetivo nesse trabalho não é desenvolver um novo paradigma para o processamento natural de linguagem. Por isso iremos fazer uso de bibliotecas de programação já existentes, que forneçam suporte as técnicas que pretendemos utilizar. Para isso planejamos usar a biblioteca NLTK (Ferramentas de Linguagem Natural, na sigla em inglês) \cite{bird2009natural}. Essa biblioteca funciona em conjunto com a linguagem de programação Python.
-
-A escolha dessa biblioteca foi feita levando em consideração os seguintes pontos:
-
-\begin{itemize}
-	\item Biblioteca distribuída livremente (sob licença \emph{Open-Source}), o que facilita a reprodutibilidade do trabalho;
-	\item Documentação ampla, facilitando seu uso;
-	\item Utilização da linguagem Python (de domínio do mestrando);
-\end{itemize}
-
-Além disso, a linguagem Python, por si só, possui mais algumas vantagens, que a tornam interessante para o desenvolvimento de uma solução de software completa:
-
-\begin{itemize}
-	\item Outras bibliotecas que dão suporte a diversas técnicas de aprendizado de máquina (que podem ser necessárias durante o desenvolvimento do trabalho);
-	\item Suporte à conectividade à banco de dados;
-	\item Suporte ao desenvolvimento de aplicações Web;
-	\item Facilidade de conectividade com outras linguagens de programação (\emph{bindings});
-\end{itemize}
-
-\subsection{Repositório de \emph{logs}}
-
-Um ponto crucial para a realização de nossa trabalho são os \emph{logs} que iremos analisar e usar para desenvolver nossa solução. Para o melhor de nosso conhecimento, todos os outros trabalhos que focaram em técnicas de abstração de \emph{logs} o fizeram usando dados de ambientes de produção, e que não estão disponíveis publicamente.
-
-Enquanto poderíamos usar um pequeno volume de dados de um computador local, ou gerar dados a partir de um ambiente simulados, acreditamos que essas soluções não apresentariam a complexidade existente em um ambiente de produção.
-
-A disponibilização de \emph{logs} de forma pública não é uma prática comum, pois pode gerar vazamento de informações. A maioria dos registros que são disponibilizados publicamente são de ambientes simulados, o que pode não refletir o um ambiente de produção de uma empresa.
-
-Para o nosso trabalho iremos utilizar o repositório de \emph{logs} \url{http://www.secrepo.com/}, que é mantido por membros da comunidade de segurança da informação. No decorrer de nosso trabalho iremos identificar quais \emph{logs} desse repositório melhor se adequarão ao nosso trabalho. Isso garante que tenhamos dados que refletem um ambiente existente na indústria, e também permite a reprodutibilidade de nosso trabalho.
 
 \chapter{Utilização de processamento natural de linguagem para abstração de logs}\label{chap:proposta}
 
@@ -420,7 +322,7 @@ Todas essas entradas tem o mesmo ``formato``: \verb|Invalid user * from *|, onde
 
 De forma mais específica podemos dizer que as linhas acimas possuem um outro formato: \verb|Invalida user <user> from <ip>|, onde \verb|<user>| e \verb|<ip>| são \emph{placeholders} para o tipo de entidade a que o campo variável se refere. Ou seja, enquanto a abstração que vimos anteriormente permite identificarmos quais posições do \emph{log} são variáveis, a segunda abstração nos permite identificar a que essas posições se referem.
 
-Essas abstrações são muito úteis na comunidade da segurança da informação. A primeira abordagem permite uma redução significativa no número de eventos tratados por um analista de segurança. No entanto, a segunda forma de abstração da uma capacidade de correlação aos eventos não disponível até então. Vamos tomar como exemplo as seguintes entradas:
+Essas abstrações são muito úteis na comunidade da segurança da informação. A primeira abordagem permite uma redução significativa no número de eventos tratados por um analista de segurança. No entanto, a segunda forma de abstração oferece a capacidade de correlação aos eventos, podendo identificar entidades que ocorram em eventos destintos. Vamos tomar como exemplo as seguintes entradas:
 
 {\small
 \begin{verbatim}
@@ -468,13 +370,98 @@ Enquanto a entidade \emph{192.168.0.1}, aparece nas duas entradas de logs (e nos
 
 Os avanços que esperamos alcançar aqui também podem gerar impactos no processo de consolidação de dados, um grande desafio existente hoje, não só nos IDSs como também para qualquer sistema de \emph{Big Data} \cite{zuech2015intrusion}. Em especial, se a classificação automática de entidades puder se feita de forma online (durante o  \emph{streaming} de dados), podemos começar a trabalhar de forma muito mais rápida, e com menor tempo de reação, para novos ataques, através da integração continua de dados.
 
-\section{Proposta de Implementação}\label{sec:implementacao}
 
-Dado o exposto anteriormente, o nosso objetivo com esse trabalho é um algoritmo, e implementar um solução de software, que permita a deteção de padrões em \emph{logs} de sistemas. A principal diferença de nossa abordagem para as que existem hoje em dia, é que não queremos somente agrupar \emph{logs} similares, como em \cite{vaarandi2003data}, mas também detectar ``entidades'' dentro dos \emph{logs}, através de técnicas de PNL.
+\section{Objetivos}
+O objetivo geral deste trabalho é o de estudar técnicas de PNL que possam permitir a identificação de entidades dentro dos \emph{logs}.
 
-Nós visualizamos nossa solução sendo usada como a primeira etapa de processamento para o recebimento de \emph{logs}, de forma que sua saída (os \emph{logs}, agrupadas e com suas entidades categorizadas), possa ser armazenado para posterior consumo por humanos ou por outras soluções de software.
+Como objetivos específicos podemos citar:
+\begin{itemize}
+	\item Estudar as várias soluções de abstração de \emph{logs} e de PNL, dentro da comunidade acadêmica;
+	
+	\item Pesquisar ferramentas que implementem algoritmos de PNL e que possivelmente possam ser utilizadas em nosso trabalho;
+	
+	\item Definir algortimo para abstração de \emph{logs} que permita a identificação de entidades;
+	
+	\item Implementar um produto de software usando as técnicas estudadas, com a finalidade de gerar abstrações de \emph{logs} que possam detetar as entidades que o compõe;
+	
+	\item Definir uma Política de Avaliação para podermos analisar os resultados de nosso trabalho em comparação com os já existentes na literatura;
+	
+\end{itemize}
 
-Durante o desenvolvimento do nosso projeto, também será elaborada um métrica para avaliar o desempenho de nossa solução, quando comparada com as demais.
+Com essa abordagem nos esperamos alcançar alguns objetivos que não encontramos em nenhum outro ponto da literatura:
+
+\begin{itemize}
+	\item Definir uma política de avaliação da capacidade de abstração de \emph{logs}, que pode ser usado para avaliar novas ferramentas;
+	\item Definir uma nova forma de abstração de \emph{logs}, que consegue detectar o tipo de entidade presente nos \emph{logs};
+\end{itemize}
+
+\section{Metodologia}
+
+%
+%
+%\section{Proposta de Implementação}\label{sec:implementacao}
+%Dado o exposto anteriormente, o nosso objetivo com esse trabalho é um algoritmo, e implementar um solução de software, que permita a deteção de padrões em \emph{logs} de sistemas. A principal diferença de nossa abordagem para as que existem hoje em dia, é que não queremos somente agrupar \emph{logs} similares, como em \cite{vaarandi2003data}, mas também detectar ``entidades'' dentro dos \emph{logs}, através de técnicas de PNL.
+%Nós visualizamos nossa solução sendo usada como a primeira etapa de processamento para o recebimento de \emph{logs}, de forma que sua saída (os \emph{logs}, agrupadas e com suas entidades categorizadas), possa ser armazenado para posterior consumo por humanos ou por outras soluções de software.
+%Durante o desenvolvimento do nosso projeto, também será elaborada um métrica para avaliar o desempenho de nossa solução, quando comparada com as demais.
+%
+%
+
+A nossa metodologia de trabalho visa uma abordagem incremental, chegando a solução de problemas complexos através da sua quebra em componentes mais simples.
+
+A primeira etapa de nossa abordagem é a extração de ``eventos'' a partir \emph{logs} de um único programa (possivelmente utilizando uma das técnicas já disponíveis).
+
+Em seguida queremos extrair, desse único tipo de evento, as entidades que o compõe, de forma a correlaciona-las (isto é, saber que dois nomes, referem-se a usuários, por exemplo). Esse é uma de nossas principais contribuições, por não encontramos nenhum trabalho que faça esse tipo de geração de forma automática.
+
+A seguir queremos correlacionar as entidades através de tipos de eventos diferentes, ou seja, saber quais campos, de diferentes tipos de \emph{logs}, se referem a um usuário ou a um \emph{host}, por exemplo.
+
+Em todas as etapas iremos, quando possível, comparar nossas resultados com os obtidos em outros trabalhos, através de nossa metodologia de avaliação.
+
+A última etapa do nosso trabalho é compartilhar os resultados encontrados com a comunidade acadêmica, através da publicação de artigos em congressos com Qualis, e  da elaboração de uma dissertação de mestrado, ou da compilação de artigos publicados;
+
+\subsection{Analise de desempenho do algoritimo}
+
+Um dos objetivos do nosso trabalho é definir uma política de avaliação de desempenho, para podermos identificar, não só como nosso trabalho se coloca em relação a outros já realizados, como também para podermos detectar melhorias no desenvolvimento de nossa solução.
+
+Abaixo algumas das características que queremos para a nossa métrica de análise de desempenho:
+
+\begin{itemize}
+	\item Ela deve ser objetiva, isto é, ela deve produzir um valor quantitativo;
+	\item Devemos conseguir comparar os resultados de soluções já existentes, e não só a que estamos desenvolvendo;
+\end{itemize}
+
+\section{Recursos adicionais}
+Além do embasamento teórico necessário para a realização desse trabalho, também necessitamos de algum referencial técnico (como implementações de algorítimos já conhecidos). Nessa seção falaremos sobre as bibliotecas e linguagens de programação que pretendemos usar. Além disso, ao final, comentaremos sobre quais dados usaremos para análise.
+
+\subsection{Bibliotecas de processamento natural de linguagem}
+
+Nosso objetivo nesse trabalho não é desenvolver um novo paradigma para o processamento natural de linguagem. Por isso iremos fazer uso de bibliotecas de programação já existentes, que forneçam suporte as técnicas que pretendemos utilizar. Para isso planejamos usar a biblioteca NLTK (Ferramentas de Linguagem Natural, na sigla em inglês) \cite{bird2009natural}. Essa biblioteca funciona em conjunto com a linguagem de programação Python.
+
+A escolha dessa biblioteca foi feita levando em consideração os seguintes pontos:
+
+\begin{itemize}
+	\item Biblioteca distribuída livremente (sob licença \emph{Open-Source}), o que facilita a reprodutibilidade do trabalho;
+	\item Documentação ampla, facilitando seu uso;
+	\item Utilização da linguagem Python (de domínio do mestrando);
+\end{itemize}
+
+Além disso, a linguagem Python, por si só, possui mais algumas vantagens, que a tornam interessante para o desenvolvimento de uma solução de software completa:
+
+\begin{itemize}
+	\item Outras bibliotecas que dão suporte a diversas técnicas de aprendizado de máquina (que podem ser necessárias durante o desenvolvimento do trabalho);
+	\item Suporte à conectividade à banco de dados;
+	\item Suporte ao desenvolvimento de aplicações Web;
+	\item Facilidade de conectividade com outras linguagens de programação (\emph{bindings});
+\end{itemize}
+
+\subsection{Repositório de logs}
+
+Um ponto crucial para a realização de nossa trabalho são os \emph{logs} que iremos analisar e usar para desenvolver nossa solução. Para o melhor de nosso conhecimento, todos os outros trabalhos que focaram em técnicas de abstração de \emph{logs} o fizeram usando dados de ambientes de produção, e que não estão disponíveis publicamente.
+
+Enquanto poderíamos usar um pequeno volume de dados de um computador local, ou gerar dados a partir de um ambiente simulados, acreditamos que essas soluções não apresentariam a complexidade existente em um ambiente de produção.
+
+A disponibilização de \emph{logs} de forma pública não é uma prática comum, pois pode gerar vazamento de informações. A maioria dos registros que são disponibilizados publicamente são de ambientes simulados, o que pode não refletir o um ambiente de produção de uma empresa.
+
+Para o nosso trabalho iremos utilizar o repositório de \emph{logs} \url{http://www.secrepo.com/}, que é mantido por membros da comunidade de segurança da informação. No decorrer de nosso trabalho iremos identificar quais \emph{logs} desse repositório melhor se adequarão ao nosso trabalho. Isso garante que tenhamos dados que refletem um ambiente existente na indústria, e também permite a reprodutibilidade de nosso trabalho.
 
 \chapter{Cronograma}\label{chap:cronograma}
 O desenvolvimento deste trabalho se dará da seguinte forma:
