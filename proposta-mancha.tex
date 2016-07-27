@@ -1,7 +1,7 @@
 % !TeX spellcheck = pt_br
 
 %% abtex2-modelo-projeto-pesquisa.tex, v-1.9.5 laurocesar
-%% Copyright 2012-2015 by abnTeX2 group at http://www.abntex.net.br/ 
+%% Copyright 2012-2015 by abnTeX2 group at http://www.abntex.net.br/
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -12,9 +12,9 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
+%%
 %% The Current Maintainer of this work is the abnTeX2 team, led
-%% by Lauro César Araujo. Further information are available on 
+%% by Lauro César Araujo. Further information are available on
 %% http://www.abntex.net.br/
 %%
 %% This work consists of the files abntex2-modelo-projeto-pesquisa.tex
@@ -23,10 +23,10 @@
 
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
-% - abnTeX2: Modelo de Projeto de pesquisa em conformidade com 
+% - abnTeX2: Modelo de Projeto de pesquisa em conformidade com
 % - ABNT NBR 15287:2011 Informação e documentação - Projeto de pesquisa -
-% - Apresentação 
-% ------------------------------------------------------------------------ 
+% - Apresentação
+% ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
 
 \documentclass[
@@ -34,7 +34,7 @@
 	12pt,				% tamanho da fonte
 	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
 	twoside,			% para impressão em verso e anverso. Oposto a oneside
-	a4paper,			% tamanho do papel. 
+	a4paper,			% tamanho do papel.
 	% -- opções da classe abntex2 --
 	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
 	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
@@ -52,7 +52,7 @@
 % ---
 
 % ---
-% Pacotes fundamentais 
+% Pacotes fundamentais
 % ---
 \usepackage{lmodern}			% Usa a fonte Latin Modern
 \usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
@@ -75,9 +75,9 @@
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
 \usepackage[alf]{abntex2cite}	% Citações padrão ABNT
 
-% --- 
+% ---
 % -CONFIGURAÇÕES DE PACOTES
-% --- 
+% ---
 
 % ---
 % Configurações do pacote backref
@@ -108,8 +108,8 @@
   \par
   PROCC - Programa de Pós-graduação em Ciência da Computação}
 \tipotrabalho{Proposta de Mestrado}
-% O preambulo deve conter o tipo do trabalho, o objetivo, 
-% o nome da instituição e a área de concentração 
+% O preambulo deve conter o tipo do trabalho, o objetivo,
+% o nome da instituição e a área de concentração
 \preambulo{Proposta de Mestrado para PROCC}
 % ---
 
@@ -123,11 +123,11 @@
 \makeatletter
 \hypersetup{
      	%pagebackref=true,
-		pdftitle={\@title}, 
+		pdftitle={\@title},
 		pdfauthor={\@author},
     	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2},
-		pdfkeywords={aprendizado de máquina} {abstração de logs }{processamento de texto} {PNL}, 
+		pdfkeywords={aprendizado de máquina} {abstração de logs }{processamento de texto} {PNL},
 		colorlinks=true,       		% false: boxed links; true: colored links
     	linkcolor=blue,          	% color of internal links
     	citecolor=blue,        		% color of links to bibliography
@@ -136,11 +136,11 @@
 		bookmarksdepth=4
 }
 \makeatother
-% --- 
+% ---
 
-% --- 
-% Espaçamentos entre linhas e parágrafos 
-% --- 
+% ---
+% Espaçamentos entre linhas e parágrafos
+% ---
 
 % O tamanho do parágrafo é dado por:
 \setlength{\parindent}{1.3cm}
@@ -164,7 +164,7 @@
 \selectlanguage{brazil}
 
 % Retira espaço extra obsoleto entre as frases.
-\frenchspacing 
+\frenchspacing
 
 % ----------------------------------------------------------
 % -ELEMENTOS PRÉ-TEXTUAIS
@@ -285,7 +285,7 @@ Já o trabalho apresentado em \cite{nagappan2010abstracting}, se baseia no traba
 
 Uma abordagem diferente das citadas anteriormente é apresentada em \cite{jiang2008automated}. Esse trabalho usa como base a detecção de clones de código fontes, e combina técnicas heurísticas com técnicas de IA (Inteligência Artificial).  O algoritmo deles é composto de quatro etapas: anonimização, através da remoção das partes dinâmicas dos registros com o uso de heurísticas; agrupamento de registros com base no número de itens estáticos e dinâmicos de cada linha; categorização de cada grupo em eventos destintos, através da comparação de strings; reconciliação, onde é dada a oportunidade de agrupar eventos que apresentam pouca diferença entre si e, portando, devem ser um único tipo de evento. Apesar de bons resultados apresentado no artigo, notamos que foram usadas poucos registros para a realização dos dados apresentados (somente cem). Tal número não mostra como o algoritmo se comportaria em ambientes reais. Uma outra desvantagem dessa abordagem é a necessidade de uma parametização por parte do usuário para o funcionamento do algoritmo e da necessidade da definição de heurísticas.
 
-Uma abordagem que apresentou grande sucesso é apresentada em \cite{xu2009detecting}. Nesse trabalho os autores propõe a análise do código fonte das aplicações que geram os registros, e não das entradas de \emph{log} geradas. Fazendo essa analise os autores conseguem localizar todos os ``templates'' de \emph{logs} que podem ser gerados pelo sistema. Apesar do sucesso dessa abordagem, acreditamos que o acesso ao código-fonte das aplicações ainda não é ubíquo, em especial em grandes empresas, e por isso essa ainda não é uma solução viável para todos os casos. 
+Uma abordagem que apresentou grande sucesso é apresentada em \cite{xu2009detecting}. Nesse trabalho os autores propõe a análise do código fonte das aplicações que geram os registros, e não das entradas de \emph{log} geradas. Fazendo essa analise os autores conseguem localizar todos os ``templates'' de \emph{logs} que podem ser gerados pelo sistema. Apesar do sucesso dessa abordagem, acreditamos que o acesso ao código-fonte das aplicações ainda não é ubíquo, em especial em grandes empresas, e por isso essa ainda não é uma solução viável para todos os casos.
 
 É interessante notar que nenhum dos trabalhos acima se preocupa na identificação de entidades que compõe a parte dinâmica dos \emph{logs}. A preocupação dos autores é somente extrair tipos de eventos. No entanto, podemos ver nos excelentes resultados apresentados em \cite{xu2008mining,yen2013beehive} a importância da utilizam as entidades extraídas dos \emph{logs} para tornar a análise de problemas mais eficaz. Dessa forma, reforçamos a ideia de que a extração de entidades de forma automática é de grande importância para extração de informação do grande volume de \emph{logs} gerados diariamente.
 
@@ -319,15 +319,15 @@ Pretendemos que nossa ferramenta seja inserida dentro do fluxo de processamento 
 
 %TODO: Verificar se esse paragrafo fica bem aqui
 
-Uma abordagem que visa facilitar a análise dos dados é a de ``abstração de \emph{logs}``, que visa abstrair eventos concretos, para seu conceito mais genérico. Por exemplo, veja as seguintes entradas de \emph{log}:
+Uma abordagem que visa facilitar a análise dos dados é a de ``abstração de \emph{logs}'', que visa abstrair eventos concretos, para seu conceito mais genérico. Por exemplo, veja as seguintes entradas de \emph{log}:
 
 \begin{verbatim}
 Invalid user developer from 116.255.160.35
 Invalid user root from 116.255.160.32
 Invalid user mancha from 116.255.170.55
 \end{verbatim}
-	
-Todas essas entradas tem o mesmo ``formato``: \verb|Invalid user * from *|, onde os asteríscos (\emph{*}), se referem aos campos variáveis das entradas (ou seja, os que podem assumir valores diferentes), os outros campos (\emph{invalid}, \emph{user}, \emph{from}), são ditos, \emph{campos estáticos}. Ou seja, as três entradas de \emph{log} acima podem ser \emph{abstraídas}, para um único \emph{tipo} de evento. 
+
+Todas essas entradas tem o mesmo ``formato''~: \verb|Invalid user * from *|, onde os asteríscos (\emph{*}), se referem aos campos variáveis das entradas (ou seja, os que podem assumir valores diferentes), os outros campos (\emph{invalid}, \emph{user}, \emph{from}), são ditos, \emph{campos estáticos}. Ou seja, as três entradas de \emph{log} acima podem ser \emph{abstraídas}, para um único \emph{tipo} de evento.
 
 De forma mais específica podemos dizer que as linhas acimas possuem um outro formato: \verb|Invalida user <user> from <ip>|, onde \verb|<user>| e \verb|<ip>| são \emph{placeholders} para o tipo de entidade a que o campo variável se refere. Ou seja, enquanto a abstração que vimos anteriormente permite identificarmos quais posições do \emph{log} são variáveis, a segunda abstração nos permite identificar a que essas posições se referem.
 
@@ -370,7 +370,7 @@ Além disso, acreditamos que as técnicas de PNL, podem nos ajudar a melhor clas
 
 {\tiny
 	\begin{verbatim}
-	refused connect from 192.168.0.1:1231 to procedure ypproc_domain_nonack 
+	refused connect from 192.168.0.1:1231 to procedure ypproc_domain_nonack
 	connect to 192.168.0.1:25: Connection timed out
 	\end{verbatim}
 }
@@ -386,15 +386,15 @@ O objetivo geral deste trabalho é o de estudar técnicas de PNL que possam perm
 Como objetivos específicos podemos citar:
 \begin{itemize}
 	\item Estudar as várias soluções de abstração de \emph{logs} e de PNL, dentro da comunidade acadêmica;
-	
+
 	\item Pesquisar ferramentas que implementem algoritmos de PNL e que possivelmente possam ser utilizadas em nosso trabalho;
-	
+
 	\item Definir algortimo para abstração de \emph{logs} que permita a identificação de entidades;
-	
+
 	\item Implementar um produto de software usando as técnicas estudadas, com a finalidade de gerar abstrações de \emph{logs} que possam detetar as entidades que o compõe;
-	
+
 	\item Definir uma Política de Avaliação para podermos analisar os resultados de nosso trabalho em comparação com os já existentes na literatura;
-	
+
 \end{itemize}
 
 Com essa abordagem nos esperamos alcançar alguns objetivos que não encontramos em nenhum outro ponto da literatura:
@@ -482,7 +482,7 @@ O desenvolvimento deste trabalho se dará da seguinte forma:
 	\item \label{imp-sol} Implementação da solução de software;
 	\item \label{ava-des} Avaliação de desempenho da solução implementada;
 	\item \label{esc-dis} Escrita da Dissertação;
-	\item \label{pub-art} Publicação de artigos;	
+	\item \label{pub-art} Publicação de artigos;
 \end{enumerate}
 
 \begin{table}[!htbp]
@@ -512,9 +512,9 @@ O desenvolvimento deste trabalho se dará da seguinte forma:
 		\ref{ava-des}&&&&&&&\textbullet&\textbullet&\textbullet&\textbullet\\
 		\hline
 		\ref{esc-dis}&&&&&&\textbullet&\textbullet&\textbullet&\textbullet&\textbullet\\
-		\hline				
+		\hline
 		\ref{pub-art}& & & & & \textbullet & & & & & \textbullet \\
-		\hline					
+		\hline
 	\end{tabular}
 \end{table}
 
