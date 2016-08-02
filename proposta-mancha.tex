@@ -303,7 +303,8 @@ O problema identificado na análise de sentimentos baseada em aspectos é extrem
 
 %O surgimento da Mineração de Textos (MT) foi motivado pela necessidade de se descobrir de forma semiautomática informações e conhecimento novos em textos. O uso das ferramentas de MT torna-se indispensável neste cenário, possibilitando o processamento de uma grande quantidade de textos, permitindo recuperar informações relevantes, possibilitando a extração de informação automática e o reconhecimento de padrões \cite{duque2012processo}.
 
-Como um caso de sucesso da aplicação de técnicas de PNL para a extração de informações e identificação de entidades podemos citar o trabalho realizado em \cite{matos2010environment, duque2012processo}. Nesses trabalhos são apresentadas técnicas para extração de informações em documentos científicos médicos.
+
+Como um caso de sucesso da aplicação de técnicas de PNL para a extração de informações e identificação de entidades podemos citar o trabalho realizado em \cite{duque2012processo}. Nesse trabalho são apresentadas técnicas para extração de informações sobre tratamentos de doenças a partir de um conjunto de artigos científicos em formato digital. É interessante notar que nesse trabalho é usada uma combinação de técnicas para alcançar um melhor resultado: aprendizado de máquina, regras e dicionário. No artigo são apresentados os pontos fracos e fortes de cada técnica, e é mostrado como elas podem trabalhar em conjunto, dentro do problema estudado por Duque et al. Os resultados obtidos são compatíveis com outros trabalhos de análise de documentos, que também fazem uso do mesmo conjunto de técnicas.
 
 %TODO: Falar dos artigos de PNL
 
@@ -365,7 +366,7 @@ Por outro lado, o trabalho apresentado em \cite{yen2013beehive} mostra bons resu
 \section{Processamento Natural de Linguagem e extração de entidades}
 Para superar as dificuldades que apresentamos na seção anterior, são necessários mecanismos que permitam a caracterização automática de entidades. No entanto, os trabalhos acadêmicos que encontramos se concentram em automatizar somente o primeiro caso de abstração que mostramos anteriormente: agrupar tipos parecidos de \emph{logs}, mas sem identificar a quais entidades as partes variáveis se referem \cite{vaarandi2003data, nagappan2010abstracting}.
 
-Nesse sentido o uso das técnicas de PNL pode trazer ganhos para a deteção de entidades. Podemos usar o PNL para encontrar o significado de uma frase (positivo ou negativo) e tentar encontrar as entidades referenciadas em uma dada linha de \emph{log} (usuário, IP de origem, sistema impactado, etc). Podemos ainda, correlacionar automaticamente o mesmo tipo de entidade em diferentes \emph{logs} (mesmo entre registros de aplicações diferentes).  Nesse sentido, fomos inspirados pelos trabalhos apresentados em \cite{matos2010environment, duque2012processo}.
+Nesse sentido o uso das técnicas de PNL pode trazer ganhos para a deteção de entidades. Podemos usar o PNL para encontrar o significado de uma frase (positivo ou negativo) e tentar encontrar as entidades referenciadas em uma dada linha de \emph{log} (usuário, IP de origem, sistema impactado, etc). Podemos ainda, correlacionar automaticamente o mesmo tipo de entidade em diferentes \emph{logs} (mesmo entre registros de aplicações diferentes).  Nesse sentido, temos como referência o trabalho apresentado em \cite{duque2012processo}.
 
 Além disso, acreditamos que as técnicas de PNL podem nos ajudar a melhor classificar as entidades. Por exemplo, observe as entradas de log abaixo:
 
